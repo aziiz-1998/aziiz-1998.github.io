@@ -1,495 +1,710 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Aziiz1998</title>
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
-
-<style>
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-:root {
-    --bg: #0a0a0f;
-    --card-bg: rgba(20, 20, 31, 0.8);
-    --fg: #f4f4f5;
-    --muted: #71717a;
-    --accent: #22b14c;
-    --accent-glow: rgba(34, 177, 76, 0.3);
-    --border: rgba(255, 255, 255, 0.08);
-}
-
-body {
-    font-family: 'Space Grotesk', sans-serif;
-    background: var(--bg);
-    color: var(--fg);
-    min-height: 100vh;
-    overflow-x: hidden;
-}
-
-.font-display {
-    font-family: 'Rajdhani', sans-serif;
-}
-
-/* PARTICLE CANVAS */
-#particles {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 0;
-    pointer-events: none;
-}
-
-/* BACKGROUND GLOW */
-.bg-glow {
-    position: fixed;
-    width: 600px;
-    height: 600px;
-    border-radius: 50%;
-    filter: blur(150px);
-    pointer-events: none;
-    z-index: 0;
-}
-
-.glow-1 {
-    top: -200px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: rgba(34, 177, 76, 0.08);
-}
-
-.glow-2 {
-    bottom: -300px;
-    right: -200px;
-    background: rgba(34, 177, 76, 0.05);
-}
-
-/* MAIN CONTENT */
-.container {
-    position: relative;
-    z-index: 2;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    padding: 40px 20px;
-    opacity: 0;
-    transform: translateY(30px);
-    animation: fadeIn 1s ease 0.3s forwards;
-}
-
-@keyframes fadeIn {
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-h1 {
-    font-family: 'Rajdhani', sans-serif;
-    font-size: 3.5rem;
-    font-weight: 700;
-    letter-spacing: -1px;
-    margin-bottom: 8px;
-}
-
-.subtitle {
-    color: var(--muted);
-    font-size: 1rem;
-    margin-bottom: 50px;
-}
-
-/* GRID */
-.grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
-    width: 100%;
-    max-width: 600px;
-    margin-bottom: 40px;
-}
-
-@media (max-width: 500px) {
-    .grid {
-        grid-template-columns: 1fr;
-    }
-}
-
-/* CARD */
-.card {
-    position: relative;
-    padding: 40px 24px;
-    border-radius: 16px;
-    text-decoration: none;
-    color: white;
-    background: var(--card-bg);
-    backdrop-filter: blur(20px);
-    border: 1px solid var(--border);
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    overflow: hidden;
-    transform-style: preserve-3d;
-    display: block;
-    text-align: center;
-}
-
-.card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 2px;
-    background: linear-gradient(90deg, transparent, var(--accent), transparent);
-    opacity: 0;
-    transition: opacity 0.4s ease;
-}
-
-.card:hover::before {
-    opacity: 1;
-}
-
-.card:hover {
-    transform: translateY(-8px);
-    border-color: rgba(34, 177, 76, 0.3);
-    box-shadow: 
-        0 20px 60px -15px rgba(34, 177, 76, 0.4),
-        0 0 0 1px rgba(34, 177, 76, 0.2);
-}
-
-.card-icon {
-    width: 56px;
-    height: 56px;
-    border-radius: 14px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto 20px auto;
-    background: rgba(34, 177, 76, 0.1);
-}
-
-.card-icon svg {
-    width: 28px;
-    height: 28px;
-    display: block;
-    flex-shrink: 0;
-}
-
-.card h2 {
-    font-family: 'Rajdhani', sans-serif;
-    font-size: 1.4rem;
-    font-weight: 700;
-    margin-bottom: 8px;
-}
-
-.card span {
-    font-size: 0.875rem;
-    color: var(--muted);
-}
-
-/* SOCIAL SECTION */
-.social-section {
-    opacity: 0;
-    animation: fadeIn 1s ease 0.6s forwards;
-}
-
-.social-label {
-    font-size: 0.75rem;
-    color: var(--muted);
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    margin-bottom: 16px;
-}
-
-.social-links {
-    display: flex;
-    gap: 12px;
-    justify-content: center;
-}
-
-.social-link {
-    width: 48px;
-    height: 48px;
-    border-radius: 12px;
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid var(--border);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--muted);
-    text-decoration: none;
-    transition: all 0.3s ease;
-}
-
-.social-link:hover {
-    transform: translateY(-4px);
-    color: var(--fg);
-    border-color: var(--accent);
-}
-
-.social-link.youtube:hover {
-    background: rgba(255, 0, 0, 0.1);
-    border-color: #ff0000;
-    color: #ff0000;
-}
-
-.social-link.tiktok:hover {
-    background: rgba(0, 242, 234, 0.1);
-    border-color: #00f2ea;
-    color: #00f2ea;
-}
-
-.social-link.facebook:hover {
-    background: rgba(24, 119, 242, 0.1);
-    border-color: #1877f2;
-    color: #1877f2;
-}
-
-.social-link.instagram:hover {
-    background: rgba(225, 48, 108, 0.1);
-    border-color: #e1306c;
-    color: #e1306c;
-}
-
-.social-link svg {
-    width: 20px;
-    height: 20px;
-    display: block;
-}
-
-/* FOOTER */
-.footer {
-    position: fixed;
-    bottom: 20px;
-    left: 0;
-    right: 0;
-    text-align: center;
-    font-size: 0.75rem;
-    color: #3f3f46;
-    z-index: 1;
-}
-
-/* REDUCED MOTION */
-@media (prefers-reduced-motion: reduce) {
-    .container, .social-section {
-        animation: none;
-        opacity: 1;
-        transform: none;
-    }
-}
-</style>
-</head>
-
-<body>
-
-<canvas id="particles"></canvas>
-<div class="bg-glow glow-1"></div>
-<div class="bg-glow glow-2"></div>
-
-<div class="container">
-
-    <h1 class="font-display">Aziiz1998</h1>
-    <p class="subtitle">Pilih kategori untuk melanjutkan</p>
-
-    <!-- Cards -->
-    <div class="grid">
-        <a href="theotown.html" class="card">
-            <div class="card-icon">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 21h16.5M4.5 3h15M5.25 3v18m13.5-18v18M9 6.75h1.5m-1.5 3h1.5m-1.5 3h1.5m3-6H15m-1.5 3H15m-1.5 3H15M9 21v-3.375c0-.621.504-1.125 1.125-1.125h3.75c.621 0 1.125.504 1.125 1.125V21"/>
-                </svg>
-            </div>
-            <h2>Plugin TheoTown</h2>
-            <span>Plugin dan Map</span>
-        </a>
-
-        <a href="hok.html" class="card">
-            <div class="card-icon">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456zM16.894 20.567L16.5 21.75l-.394-1.183a2.25 2.25 0 00-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 001.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 001.423 1.423l1.183.394-1.183.394a2.25 2.25 0 00-1.423 1.423z"/>
-                </svg>
-            </div>
-            <h2>Honor of Kings</h2>
-            <span>Grup dan Komunitas</span>
-        </a>
-    </div>
-
-    <!-- Social Links -->
-    <div class="social-section">
-        <p class="social-label">Ikuti Saya</p>
-        <div class="social-links">
-            
-            <!-- YouTube -->
-            <a href="https://youtube.com/@aziiz1998?si=IJdpI4JIerCp1nKV" target="_blank" rel="noopener noreferrer" class="social-link youtube" aria-label="YouTube">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
-                </svg>
-            </a>
-
-            <!-- TikTok -->
-            <a href="https://www.tiktok.com/@aziiz_1998_?_r=1&_t=ZS-93rnQvGNzb3" target="_blank" rel="noopener noreferrer" class="social-link tiktok" aria-label="TikTok">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/>
-                </svg>
-            </a>
-
-            <!-- Facebook -->
-            <a href="https://www.facebook.com/Aziiz1998?mibextid=rS40aB7S9Ucbxw6v" target="_blank" rel="noopener noreferrer" class="social-link facebook" aria-label="Facebook">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
-                </svg>
-            </a>
-
-            <!-- Instagram -->
-            <a href="https://www.instagram.com/aziiz_1998_?igsh=MWNvcjR4Y2xlZHBvaw==" target="_blank" rel="noopener noreferrer" class="social-link instagram" aria-label="Instagram">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/>
-                </svg>
-            </a>
-
-        </div>
-    </div>
-
-</div>
-
-<div class="footer">
-    © 2025 Aziiz1998
-</div>
-
-<script>
-/* ===== PARTICLE SYSTEM ===== */
-const canvas = document.getElementById("particles");
-const ctx = canvas.getContext("2d");
-
-let particlesArray = [];
-const numberOfParticles = 60;
-const eps = 0.001;
-
-function resizeCanvas() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-}
-
-resizeCanvas();
-
-class Particle {
-    constructor() {
-        this.reset();
-    }
-    
-    reset() {
-        this.x = Math.random() * canvas.width;
-        this.y = Math.random() * canvas.height;
-        this.size = Math.max(eps, Math.random() * 2 + 1);
-        this.speedX = (Math.random() - 0.5) * 0.5;
-        this.speedY = (Math.random() - 0.5) * 0.5;
-        this.opacity = Math.random() * 0.5 + 0.2;
-    }
-    
-    update() {
-        this.x += this.speedX;
-        this.y += this.speedY;
-
-        if (this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) {
-            this.reset();
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aziiz1998 - Ramadan Mubarak</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0a0d1a;
+            --fg: #f5f0e6;
+            --muted: #8b9bb4;
+            --accent-gold: #d4a853;
+            --accent-gold-light: #f0c96e;
+            --accent-purple: #6b4c9a;
+            --accent-teal: #2d8a8a;
+            --card: rgba(20, 25, 45, 0.85);
+            --border: rgba(212, 168, 83, 0.15);
         }
-    }
-    
-    draw() {
-        const safeSize = Math.max(eps, this.size);
-        const safeOpacity = Math.max(0, Math.min(1, this.opacity));
-        ctx.fillStyle = `rgba(34, 177, 76, ${safeOpacity})`;
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, safeSize, 0, Math.PI * 2);
-        ctx.fill();
-    }
-}
 
-function connect() {
-    const maxDist = 120;
-    for (let a = 0; a < particlesArray.length; a++) {
-        for (let b = a + 1; b < particlesArray.length; b++) {
-            const dx = particlesArray[a].x - particlesArray[b].x;
-            const dy = particlesArray[a].y - particlesArray[b].y;
-            const distance = Math.sqrt(dx * dx + dy * dy);
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-            if (distance < maxDist) {
-                const opacity = Math.max(0, Math.min(1, (1 - distance / maxDist) * 0.15));
-                ctx.strokeStyle = `rgba(34, 177, 76, ${opacity})`;
-                ctx.lineWidth = 1;
-                ctx.beginPath();
-                ctx.moveTo(particlesArray[a].x, particlesArray[a].y);
-                ctx.lineTo(particlesArray[b].x, particlesArray[b].y);
-                ctx.stroke();
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background: var(--bg);
+            color: var(--fg);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .font-display {
+            font-family: 'Amiri', serif;
+        }
+
+        #stars-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .bg-gradient {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(ellipse at 20% 20%, rgba(107, 76, 154, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 80%, rgba(45, 138, 138, 0.1) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 0%, rgba(212, 168, 83, 0.08) 0%, transparent 40%),
+                linear-gradient(180deg, #0a0d1a 0%, #12162a 50%, #0a0d1a 100%);
+            z-index: 0;
+        }
+
+        .islamic-pattern {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.03;
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0L60 30L30 60L0 30L30 0z' fill='none' stroke='%23d4a853' stroke-width='0.5'/%3E%3Cpath d='M30 10L50 30L30 50L10 30L30 10z' fill='none' stroke='%23d4a853' stroke-width='0.5'/%3E%3C/svg%3E");
+            background-size: 60px 60px;
+            z-index: 0;
+        }
+
+        .moon-glow {
+            position: fixed;
+            top: 5%;
+            right: 10%;
+            width: 150px;
+            height: 150px;
+            background: radial-gradient(circle, rgba(240, 201, 110, 0.3) 0%, transparent 70%);
+            border-radius: 50%;
+            filter: blur(30px);
+            animation: moonGlow 4s ease-in-out infinite alternate;
+            z-index: 0;
+        }
+
+        @keyframes moonGlow {
+            0% { opacity: 0.5; transform: scale(1); }
+            100% { opacity: 0.8; transform: scale(1.1); }
+        }
+
+        .lantern {
+            position: fixed;
+            z-index: 1;
+            animation: lanternFloat 6s ease-in-out infinite;
+        }
+
+        .lantern-1 { top: 10%; left: 5%; animation-delay: 0s; }
+        .lantern-2 { top: 20%; right: 8%; animation-delay: -2s; }
+        .lantern-3 { top: 60%; left: 3%; animation-delay: -4s; }
+
+        @keyframes lanternFloat {
+            0%, 100% { transform: translateY(0) rotate(-3deg); }
+            50% { transform: translateY(-20px) rotate(3deg); }
+        }
+
+        .lantern svg {
+            width: 60px;
+            height: auto;
+            filter: drop-shadow(0 0 20px rgba(212, 168, 83, 0.5));
+        }
+
+        .content-wrapper {
+            position: relative;
+            z-index: 10;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+            animation: fadeInDown 1s ease-out;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
             }
         }
-    }
-}
 
-function init() {
-    particlesArray = [];
-    for (let i = 0; i < numberOfParticles; i++) {
-        particlesArray.push(new Particle());
-    }
-}
+        .crescent-moon {
+            position: relative;
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 1.5rem;
+        }
 
-function animate() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    
-    particlesArray.forEach(p => {
-        p.update();
-        p.draw();
-    });
-    
-    connect();
-    requestAnimationFrame(animate);
-}
+        .crescent-moon svg {
+            width: 100%;
+            height: 100%;
+            filter: drop-shadow(0 0 30px rgba(212, 168, 83, 0.6));
+            animation: crescentGlow 3s ease-in-out infinite alternate;
+        }
 
-init();
-animate();
+        @keyframes crescentGlow {
+            0% { filter: drop-shadow(0 0 20px rgba(212, 168, 83, 0.5)); }
+            100% { filter: drop-shadow(0 0 40px rgba(240, 201, 110, 0.8)); }
+        }
 
-window.addEventListener("resize", () => {
-    resizeCanvas();
-    init();
-});
+        .ramadan-greeting {
+            font-size: clamp(1rem, 3vw, 1.3rem);
+            color: var(--accent-gold);
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+            opacity: 0.9;
+        }
 
-/* ===== 3D TILT EFFECT ===== */
-const cards = document.querySelectorAll(".card");
+        .neon-logo-wrapper {
+            position: relative;
+            margin-bottom: 1rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
 
-cards.forEach(card => {
-    card.addEventListener("mousemove", (e) => {
-        const rect = card.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        const centerX = rect.width / 2;
-        const centerY = rect.height / 2;
-        const rotateX = -(y - centerY) / 12;
-        const rotateY = (x - centerX) / 12;
+        .neon-logo {
+            position: relative;
+            font-family: 'Amiri', serif;
+            font-size: clamp(2.5rem, 10vw, 4.5rem);
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            color: var(--accent-gold-light);
+            text-shadow: 
+                0 0 10px var(--accent-gold),
+                0 0 20px var(--accent-gold),
+                0 0 40px var(--accent-gold),
+                0 0 80px rgba(212, 168, 83, 0.5);
+            animation: goldPulse 3s ease-in-out infinite alternate;
+            user-select: none;
+        }
 
-        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-8px)`;
-    });
+        @keyframes goldPulse {
+            0% {
+                text-shadow: 
+                    0 0 10px var(--accent-gold),
+                    0 0 20px var(--accent-gold),
+                    0 0 40px var(--accent-gold),
+                    0 0 80px rgba(212, 168, 83, 0.5);
+            }
+            100% {
+                text-shadow: 
+                    0 0 15px var(--accent-gold-light),
+                    0 0 30px var(--accent-gold),
+                    0 0 60px var(--accent-gold),
+                    0 0 100px rgba(212, 168, 83, 0.6);
+            }
+        }
 
-    card.addEventListener("mouseleave", () => {
-        card.style.transform = "perspective(1000px) rotateX(0) rotateY(0) translateY(0)";
-    });
-});
+        .neon-logo .letter-glow {
+            color: #fff;
+            text-shadow: 
+                0 0 10px #fff,
+                0 0 20px var(--accent-gold-light),
+                0 0 40px var(--accent-gold),
+                0 0 60px var(--accent-gold);
+        }
 
-/* ===== REDUCED MOTION CHECK ===== */
-if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    cancelAnimationFrame(animate);
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-}
-</script>
+        .ornament-line {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
 
+        .ornament-line .line {
+            width: 80px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--accent-gold), transparent);
+        }
+
+        .ornament-line .diamond {
+            width: 8px;
+            height: 8px;
+            background: var(--accent-gold);
+            transform: rotate(45deg);
+            box-shadow: 0 0 10px var(--accent-gold);
+        }
+
+        .subtitle {
+            color: var(--muted);
+            font-size: 1rem;
+            letter-spacing: 0.4em;
+            text-transform: uppercase;
+            margin-top: 1.5rem;
+            animation: fadeInUp 0.8s ease-out 0.3s backwards;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .cards-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            max-width: 800px;
+            width: 100%;
+            margin-bottom: 3rem;
+        }
+
+        .plugin-card {
+            display: block;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 2.5rem 2rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            animation: fadeInUp 0.8s ease-out backwards;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .plugin-card:nth-child(1) { animation-delay: 0.4s; }
+        .plugin-card:nth-child(2) { animation-delay: 0.6s; }
+
+        .plugin-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--accent-gold), transparent);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .plugin-card::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 50% 0%, rgba(212, 168, 83, 0.1) 0%, transparent 60%);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .plugin-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--accent-gold);
+            box-shadow: 
+                0 20px 60px rgba(212, 168, 83, 0.1),
+                0 0 0 1px rgba(212, 168, 83, 0.2),
+                inset 0 0 30px rgba(212, 168, 83, 0.05);
+        }
+
+        .plugin-card:hover::before,
+        .plugin-card:hover::after {
+            opacity: 1;
+        }
+
+        .plugin-icon {
+            width: 90px;
+            height: 90px;
+            margin: 0 auto 1.5rem;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: 700;
+            position: relative;
+            transition: transform 0.4s;
+            z-index: 1;
+        }
+
+        .plugin-card:hover .plugin-icon {
+            transform: scale(1.1);
+        }
+
+        .theotown .plugin-icon {
+            background: linear-gradient(135deg, #1a3a3a 0%, #2d8a8a 100%);
+            box-shadow: 0 10px 40px rgba(45, 138, 138, 0.3);
+            color: #f0c96e;
+        }
+
+        .hok .plugin-icon {
+            background: linear-gradient(135deg, #3a1a1a 0%, #8a4545 100%);
+            box-shadow: 0 10px 40px rgba(138, 69, 69, 0.3);
+            color: #f0c96e;
+        }
+
+        .plugin-name {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            letter-spacing: 0.05em;
+            position: relative;
+            z-index: 1;
+        }
+
+        .plugin-desc {
+            color: var(--muted);
+            font-size: 0.9rem;
+            line-height: 1.6;
+            position: relative;
+            z-index: 1;
+        }
+
+        .plugin-arrow {
+            margin-top: 1.5rem;
+            opacity: 0;
+            transform: translateX(-10px);
+            transition: all 0.3s;
+            color: var(--accent-gold);
+            position: relative;
+            z-index: 1;
+        }
+
+        .plugin-card:hover .plugin-arrow {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .social-section {
+            animation: fadeInUp 0.8s ease-out 0.8s backwards;
+        }
+
+        .social-title {
+            text-align: center;
+            color: var(--muted);
+            font-size: 0.85rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .social-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem 1.5rem;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            color: var(--fg);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            backdrop-filter: blur(10px);
+        }
+
+        .social-btn:hover {
+            transform: translateY(-4px);
+            border-color: var(--accent-gold);
+            box-shadow: 0 10px 30px rgba(212, 168, 83, 0.15);
+        }
+
+        .social-btn svg {
+            width: 22px;
+            height: 22px;
+            transition: transform 0.3s;
+        }
+
+        .social-btn:hover svg {
+            transform: scale(1.1);
+        }
+
+        .footer {
+            position: fixed;
+            bottom: 1rem;
+            text-align: center;
+            color: var(--muted);
+            font-size: 0.75rem;
+            letter-spacing: 0.1em;
+        }
+
+        .footer span {
+            color: var(--accent-gold);
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .neon-logo {
+                font-size: clamp(2rem, 12vw, 3rem);
+            }
+
+            .lantern {
+                display: none;
+            }
+
+            .cards-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .social-links {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .social-btn {
+                justify-content: center;
+            }
+
+            .crescent-moon {
+                width: 60px;
+                height: 60px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-gradient"></div>
+    <div class="islamic-pattern"></div>
+    <div class="moon-glow"></div>
+    <canvas id="stars-canvas"></canvas>
+
+    <!-- Floating Lanterns -->
+    <div class="lantern lantern-1">
+        <svg viewBox="0 0 40 70" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M20 0V8" stroke="#d4a853" stroke-width="2"/>
+            <ellipse cx="20" cy="35" rx="15" ry="25" fill="url(#lanternGrad)" stroke="#d4a853" stroke-width="1"/>
+            <path d="M8 35C8 35 12 28 20 28C28 28 32 35 32 35" stroke="#d4a853" stroke-width="1" fill="none"/>
+            <path d="M8 35C8 35 12 42 20 42C28 42 32 35 32 35" stroke="#d4a853" stroke-width="1" fill="none"/>
+            <ellipse cx="20" cy="60" rx="5" ry="3" fill="#d4a853"/>
+            <circle cx="20" cy="35" r="5" fill="#f0c96e" opacity="0.6"/>
+            <defs>
+                <radialGradient id="lanternGrad" cx="0.5" cy="0.3" r="0.7">
+                    <stop offset="0%" stop-color="#f0c96e" stop-opacity="0.3"/>
+                    <stop offset="100%" stop-color="#1a1a2e" stop-opacity="0.8"/>
+                </radialGradient>
+            </defs>
+        </svg>
+    </div>
+
+    <div class="lantern lantern-2">
+        <svg viewBox="0 0 40 70" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M20 0V8" stroke="#d4a853" stroke-width="2"/>
+            <ellipse cx="20" cy="35" rx="15" ry="25" fill="url(#lanternGrad2)" stroke="#d4a853" stroke-width="1"/>
+            <path d="M8 35C8 35 12 28 20 28C28 28 32 35 32 35" stroke="#d4a853" stroke-width="1" fill="none"/>
+            <path d="M8 35C8 35 12 42 20 42C28 42 32 35 32 35" stroke="#d4a853" stroke-width="1" fill="none"/>
+            <ellipse cx="20" cy="60" rx="5" ry="3" fill="#d4a853"/>
+            <circle cx="20" cy="35" r="5" fill="#f0c96e" opacity="0.6"/>
+            <defs>
+                <radialGradient id="lanternGrad2" cx="0.5" cy="0.3" r="0.7">
+                    <stop offset="0%" stop-color="#f0c96e" stop-opacity="0.3"/>
+                    <stop offset="100%" stop-color="#1a1a2e" stop-opacity="0.8"/>
+                </radialGradient>
+            </defs>
+        </svg>
+    </div>
+
+    <div class="lantern lantern-3">
+        <svg viewBox="0 0 40 70" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M20 0V8" stroke="#d4a853" stroke-width="2"/>
+            <ellipse cx="20" cy="35" rx="15" ry="25" fill="url(#lanternGrad3)" stroke="#d4a853" stroke-width="1"/>
+            <path d="M8 35C8 35 12 28 20 28C28 28 32 35 32 35" stroke="#d4a853" stroke-width="1" fill="none"/>
+            <path d="M8 35C8 35 12 42 20 42C28 42 32 35 32 35" stroke="#d4a853" stroke-width="1" fill="none"/>
+            <ellipse cx="20" cy="60" rx="5" ry="3" fill="#d4a853"/>
+            <circle cx="20" cy="35" r="5" fill="#f0c96e" opacity="0.6"/>
+            <defs>
+                <radialGradient id="lanternGrad3" cx="0.5" cy="0.3" r="0.7">
+                    <stop offset="0%" stop-color="#f0c96e" stop-opacity="0.3"/>
+                    <stop offset="100%" stop-color="#1a1a2e" stop-opacity="0.8"/>
+                </radialGradient>
+            </defs>
+        </svg>
+    </div>
+
+    <div class="content-wrapper">
+        <header class="header">
+            <!-- Crescent Moon -->
+            <div class="crescent-moon">
+                <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M50 5C30 5 15 25 15 50C15 75 30 95 50 95C35 85 25 70 25 50C25 30 35 15 50 5Z" fill="#f0c96e"/>
+                    <circle cx="45" cy="50" r="30" fill="#0a0d1a"/>
+                </svg>
+            </div>
+
+            <p class="ramadan-greeting font-display">Ramadan Mubarak</p>
+            
+            <div class="neon-logo-wrapper">
+                <h1 class="neon-logo">
+                    <span>Azi</span><span class="letter-glow">i</span><span>z</span><span class="letter-glow">1998</span>
+                </h1>
+            </div>
+
+            <div class="ornament-line">
+                <div class="line"></div>
+                <div class="diamond"></div>
+                <div class="line"></div>
+            </div>
+
+            <p class="subtitle">Community Hub</p>
+        </header>
+
+        <div class="cards-container">
+            <!-- TheoTown Card -->
+            <a href="theotown.html" class="plugin-card theotown">
+                <div class="plugin-icon font-display">TT</div>
+                <h2 class="plugin-name">TheoTown</h2>
+                <p class="plugin-desc">Plugin untuk pengalaman membangun kota terbaikmu</p>
+                <div class="plugin-arrow">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                        <polyline points="12 5 19 12 12 19"></polyline>
+                    </svg>
+                </div>
+            </a>
+
+            <!-- HOK Card -->
+            <a href="hok.html" class="plugin-card hok">
+                <div class="plugin-icon font-display">HOK</div>
+                <h2 class="plugin-name">Honor of Kings</h2>
+                <p class="plugin-desc">komunitas Honor Of Kings</p>
+                <div class="plugin-arrow">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                        <polyline points="12 5 19 12 12 19"></polyline>
+                    </svg>
+                </div>
+            </a>
+        </div>
+
+        <section class="social-section">
+            <p class="social-title">Ikuti Kami</p>
+            <div class="social-links">
+                <a href="https://youtube.com/@aziiz1998?si=d8s-CUmmjxW93j5h" target="_blank" rel="noopener noreferrer" class="social-btn youtube">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                    </svg>
+                    <span>YouTube</span>
+                </a>
+                <a href="https://www.tiktok.com/@aziiz_1998_?_r=1&_t=ZS-941zZQU8ni8" target="_blank" rel="noopener noreferrer" class="social-btn tiktok">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/>
+                    </svg>
+                    <span>TikTok</span>
+                </a>
+                <a href="https://discord.gg/myVHHG3FWc" target="_blank" rel="noopener noreferrer" class="social-btn discord">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189Z"/>
+                    </svg>
+                    <span>Discord</span>
+                </a>
+            </div>
+        </section>
+    </div>
+
+    <footer class="footer">
+        <p><span>Aziiz1998</span> Community - Ramadan 1447H</p>
+    </footer>
+
+    <script>
+        // Stars Particle System
+        const canvas = document.getElementById('stars-canvas');
+        const ctx = canvas.getContext('2d');
+        
+        let stars = [];
+        const starCount = 80;
+        
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+        
+        class Star {
+            constructor() {
+                this.reset();
+            }
+            
+            reset() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2 + 0.5;
+                this.twinkleSpeed = Math.random() * 0.02 + 0.005;
+                this.twinklePhase = Math.random() * Math.PI * 2;
+                this.baseOpacity = Math.random() * 0.5 + 0.3;
+            }
+            
+            update() {
+                this.twinklePhase += this.twinkleSpeed;
+            }
+            
+            draw() {
+                const opacity = this.baseOpacity + Math.sin(this.twinklePhase) * 0.3;
+                const safeOpacity = Math.max(0, Math.min(1, opacity));
+                
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, Math.max(0.1, this.size), 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(240, 201, 110, ${safeOpacity})`;
+                ctx.fill();
+                
+                // Add glow effect for larger stars
+                if (this.size > 1.5) {
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, Math.max(0.1, this.size * 2), 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(212, 168, 83, ${safeOpacity * 0.2})`;
+                    ctx.fill();
+                }
+            }
+        }
+        
+        for (let i = 0; i < starCount; i++) {
+            stars.push(new Star());
+        }
+        
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            stars.forEach(star => {
+                star.update();
+                star.draw();
+            });
+            
+            requestAnimationFrame(animate);
+        }
+        
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        
+        if (!prefersReducedMotion) {
+            animate();
+        }
+    </script>
 </body>
 </html>
