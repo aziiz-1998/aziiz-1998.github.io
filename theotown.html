@@ -3,502 +3,563 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Plugin Theotown - Aziiz1998</title>
-    <!-- Mengambil Font Modern 'Poppins' -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
-    
-    <!-- KODE ADSENSE UTAMA -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4578844258469509" crossorigin="anonymous"></script>
-    
+    <title>Plugin Community Aziiz1998</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
     <style>
-        /* CSS VARIABLES - Tema Warna TheoTown */
         :root {
-            --bg-color: #0f111a; 
-            --card-bg: #1e2230;
-            --text-color: #e0e6ed;
-            --grid-line: rgba(255, 255, 255, 0.05);
-            --accent-green: #22b14c;
-            --accent-blue: #00a2e8;
-            --accent-red: #ed1c24;
-            --accent-gold: #ffc90e;
-            --accent-purple: #a349a4;
-            --accent-orange: #ff7f00;
+            --bg-dark: #0a0a0a;
+            --card-glass: rgba(255, 255, 255, 0.05);
+            --card-border: rgba(255, 255, 255, 0.1);
+            --text-main: #ffffff;
+            --text-muted: #a0a0a0;
+            --accent-glow: #00ff9d;
+            --error-color: #ff4757;
+            --yt-red: #FF0000;
+            --tt-black: #000000;
+            --special-gold: #FFD700;
         }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            word-wrap: break-word; 
-            overflow-wrap: break-word;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            font-family: 'Poppins', sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            line-height: 1.5;
-            background-image: 
-                linear-gradient(var(--grid-line) 1px, transparent 1px),
-                linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
-            background-size: 30px 30px;
-            overflow-x: hidden;
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            background-image: radial-gradient(circle at 10% 20%, rgba(0, 255, 157, 0.05) 0%, transparent 40%);
+            min-height: 100vh;
         }
 
-        /* HEADER DESIGN */
         header {
+            padding: 3rem 2rem 1rem;
             text-align: center;
-            padding: 40px 20px 30px;
-            background: linear-gradient(180deg, #162032 0%, var(--bg-color) 100%);
-            border-bottom: 4px solid var(--accent-blue);
+        }
+
+        header h1 {
+            font-size: 2.8rem;
+            background: linear-gradient(to right, #fff, #888);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1.5rem;
+        }
+
+        .header-buttons {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 1.5rem;
+        }
+
+        .btn-header {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: white;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .btn-header:hover { transform: scale(1.05); }
+
+        .btn-yt { background-color: var(--yt-red); }
+        .btn-yt:hover { box-shadow: 0 0 15px rgba(255, 0, 0, 0.4); }
+
+        .btn-tt { background-color: var(--tt-black); border: 1px solid #fff; }
+        .btn-tt:hover { background-color: #333; box-shadow: 0 0 15px rgba(255, 255, 255, 0.1); }
+
+        .btn-game { background-color: var(--accent-glow); color: #000; }
+        .btn-game:hover { box-shadow: 0 0 15px rgba(0, 255, 157, 0.4); }
+
+        .search-container {
+            max-width: 500px;
+            margin: 0 auto 1rem;
             position: relative;
         }
 
-        h1 {
-            font-size: 2rem;
-            font-weight: 800;
+        .search-input {
+            width: 100%;
+            padding: 15px 20px 15px 50px;
+            border-radius: 30px;
+            background: var(--card-glass);
+            border: 1px solid var(--card-border);
+            color: var(--text-main);
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .search-input::placeholder { color: var(--text-muted); }
+        .search-input:focus { border-color: var(--accent-glow); }
+
+        .search-icon {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+        }
+
+        .warning-text {
+            color: var(--error-color);
+            font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 1px;
-            color: #fff;
-            margin-bottom: 10px;
-            text-shadow: 0 4px 10px rgba(0,0,0,0.5);
-        }
-
-        .subtitle {
-            font-size: 0.8rem;
-            color: var(--accent-blue);
-            font-weight: 600;
-            background: rgba(0, 162, 232, 0.1);
-            display: inline-block;
-            padding: 5px 12px;
-            border-radius: 50px;
-            margin-bottom: 20px;
-            border: 1px solid rgba(0, 162, 232, 0.3);
-        }
-
-        .yt-btn {
-            display: inline-flex;
-            align-items: center;
-            text-decoration: none;
-            background-color: #FF0000;
-            color: white;
-            padding: 10px 25px;
-            border-radius: 8px;
-            font-weight: 700;
+            margin-top: 0.5rem;
             font-size: 0.9rem;
-            box-shadow: 0 4px 0 #cc0000;
-            transition: transform 0.1s, box-shadow 0.1s;
+            margin-bottom: 2rem;
         }
 
-        .yt-btn:active {
-            transform: translateY(4px);
-            box-shadow: 0 0 0 #cc0000;
-        }
-
-        /* CONTAINER */
         .container {
-            max-width: 1200px;
+            max-width: 1300px;
             margin: 0 auto;
-            padding: 20px 15px 60px;
+            padding: 0 2rem 4rem;
         }
+
+        .status-box {
+            text-align: center; padding: 3rem 2rem; background: var(--card-glass);
+            border: 1px solid var(--card-border); border-radius: 20px; margin-top: 2rem;
+            font-size: 1.1rem; color: var(--text-muted);
+        }
+        
+        .status-box.error { color: var(--error-color); border-color: var(--error-color); background: rgba(255, 71, 87, 0.05); }
 
         .plugin-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 2rem;
         }
 
-        /* CARD DESIGN */
         .card {
-            background-color: var(--card-bg);
-            border-radius: 12px;
+            background: var(--card-glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
             overflow: hidden;
-            border: 1px solid rgba(255,255,255,0.1);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            transition: all 0.4s ease;
+            opacity: 0;
+            animation: fadeIn 0.5s forwards;
             display: flex;
             flex-direction: column;
-            height: 100%;
             position: relative;
         }
 
-        .card-image {
-            width: 100%;
-            height: 160px;
-            object-fit: cover;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-            background-color: #000;
-            min-height: 160px; 
+        /* Special Card Style */
+        .card.special-card {
+            border: 1px solid var(--special-gold);
+            background: linear-gradient(145deg, rgba(255, 215, 0, 0.05), rgba(0, 0, 0, 0.8));
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.15);
+        }
+        .card.special-card:hover {
+            box-shadow: 0 0 25px rgba(255, 215, 0, 0.3);
+            border-color: #FFF;
         }
 
-        .card-content {
+        @keyframes fadeIn { to { opacity: 1; } }
+
+        .card:hover:not(.special-card) {
+            transform: translateY(-10px);
+            border-color: rgba(255, 255, 255, 0.3);
+            box-shadow: 0 0 30px rgba(0, 255, 157, 0.1);
+        }
+        .card:hover.special-card { transform: translateY(-10px); }
+
+        .img-container {
+            height: 220px;
+            overflow: hidden;
+            position: relative;
+            background: #111;
+        }
+
+        .img-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.8;
+            transition: all 0.5s ease;
+            filter: grayscale(20%);
+        }
+
+        .card:hover .img-container img {
+            opacity: 1;
+            transform: scale(1.1);
+            filter: grayscale(0%);
+        }
+
+        /* Badge & Tags Positioning */
+        .badge-overlay {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            pointer-events: none; 
             padding: 15px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between; 
+            z-index: 10;
+        }
+
+        .category-tag {
+            align-self: flex-start;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(5px);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border: 1px solid rgba(255,255,255,0.2);
+            color: #fff;
+        }
+
+        .official-badge {
+            align-self: flex-end; 
+            background: var(--special-gold);
+            color: #000;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+        }
+
+        .card-body {
+            padding: 1.5rem;
             flex-grow: 1;
             display: flex;
             flex-direction: column;
         }
 
-        /* Badges Kategori */
-        .category {
-            font-size: 0.65rem;
-            font-weight: 800;
-            text-transform: uppercase;
-            padding: 4px 8px;
-            border-radius: 4px;
-            display: inline-block;
-            margin-bottom: 8px;
-            width: fit-content;
-            letter-spacing: 0.5px;
+        .card-body h2 {
+            font-size: 1.4rem;
+            margin-bottom: 0.25rem;
+            font-weight: 600;
         }
-
-        .cat-kuburan { background: rgba(128,128,128,0.2); color: #ccc; }
-        .cat-pemadam { background: rgba(237,28,36,0.2); color: var(--accent-red); }
-        .cat-landmark { background: rgba(255,201,14,0.2); color: var(--accent-gold); }
-        .cat-pendidikan { background: rgba(0,162,232,0.2); color: var(--accent-blue); }
-        .cat-rumah { background: rgba(255,255,255,0.1); color: #fff; }
-        .cat-air { background: rgba(0,162,232,0.2); color: var(--accent-blue); }
-        .cat-rs { background: rgba(255,255,255,0.15); color: #fff; border: 1px solid rgba(255,255,255,0.2); }
-        .cat-taman { background: rgba(34,177,76,0.2); color: var(--accent-green); }
-        .cat-sampah { background: rgba(100,100,100,0.2); color: #999; }
-        .cat-komersial { background: rgba(0,162,232,0.2); color: var(--accent-blue); }
-        .cat-olahraga { background: rgba(163,73,164,0.2); color: var(--accent-purple); }
-        .cat-industri { background: rgba(255, 127, 0, 0.2); color: var(--accent-orange); }
-
-        .card-title {
-            font-size: 1rem;
-            font-weight: 700;
-            margin-bottom: 10px;
-            color: #fff;
-            line-height: 1.3;
-        }
-
-        .description {
-            font-size: 0.8rem;
-            color: #a0aab5;
-            margin-bottom: 15px;
-            background: rgba(0,0,0,0.3);
-            padding: 10px;
-            border-radius: 6px;
-            border-left: 4px solid var(--accent-green);
-            max-height: 130px;
-            overflow-y: scroll;
-            scrollbar-width: auto;
-            scrollbar-color: var(--accent-green) #1e2230;
-        }
-
-        .description::-webkit-scrollbar { width: 8px; }
-        .description::-webkit-scrollbar-track { background: #1e2230; }
-        .description::-webkit-scrollbar-thumb { background-color: var(--accent-green); border-radius: 10px; border: 2px solid #1e2230; }
-
-        .download-btn {
-            display: block;
-            width: 100%;
-            padding: 12px;
-            text-align: center;
-            background-color: var(--accent-green);
-            color: #000;
-            text-decoration: none;
-            border-radius: 6px;
-            font-weight: 800;
+        
+        .creator-name {
             font-size: 0.85rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: background 0.2s;
-            margin-top: auto;
-            box-shadow: 0 4px 0 #146629;
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+            font-weight: 400;
+        }
+        
+        .card.special-card .creator-name {
+            color: var(--special-gold);
+            font-weight: 600;
         }
 
-        .download-btn:hover { background-color: #29d45d; }
-        .download-btn:active { transform: translateY(4px); box-shadow: 0 0 0 #146629; }
-
-        /* FOOTER */
-        footer {
-            text-align: center;
-            padding: 40px 20px;
-            margin-top: 20px;
-            font-size: 0.85rem;
-            color: #555d6a;
-            border-top: 1px solid rgba(255,255,255,0.05);
+        .card-body p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+            font-weight: 300;
+            flex-grow: 1;
         }
 
-        /* CSS UNTUK AREA IKLAN */
-        .ad-banner {
-            width: 100%;
-            background: rgba(255,255,255,0.02);
-            text-align: center;
-            padding: 15px 5px;
-            margin: 0 auto;
+        .card-footer {
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100px;
-            overflow: hidden;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
         }
 
-        @media (max-width: 360px) {
+        .btn-download {
+            text-decoration: none;
+            color: var(--accent-glow);
+            border: 1px solid var(--accent-glow);
+            padding: 12px 30px;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            background: transparent;
+            text-align: center;
+            display: block;
+            width: 100%;
+        }
+
+        .btn-download:hover {
+            background: var(--accent-glow);
+            color: #000;
+            box-shadow: 0 0 15px rgba(0, 255, 157, 0.4);
+        }
+
+        /* PAGINATION STYLES */
+        .pagination-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 3rem;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .pagination-btn {
+            background: var(--card-glass);
+            border: 1px solid var(--card-border);
+            color: var(--text-main);
+            padding: 10px 18px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .pagination-btn:hover {
+            background: rgba(255,255,255,0.1);
+            border-color: var(--text-muted);
+        }
+
+        .pagination-btn.active {
+            background: var(--accent-glow);
+            color: #000;
+            border-color: var(--accent-glow);
+            box-shadow: 0 0 10px rgba(0, 255, 157, 0.3);
+        }
+
+        .pagination-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        footer.main-footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            border-top: 1px solid var(--card-border);
+            margin-top: 3rem;
+        }
+
+        @media (max-width: 768px) {
+            header h1 { font-size: 2rem; }
             .plugin-grid { grid-template-columns: 1fr; }
-            h1 { font-size: 1.5rem; }
-            .card-image { height: 140px; }
-            .description { max-height: 120px; }
-            .card-title { font-size: 0.95rem; }
+            .pagination-btn { padding: 8px 12px; font-size: 0.9rem; }
         }
     </style>
 </head>
 <body>
 
     <header>
-        <h1>PLUGIN THEOTOWN</h1>
-        <p class="subtitle">CREATE BY AZIIZ1998 DILARANG RE-UPLOAD</p>
-        <br>
-        <a href="https://youtube.com/@aziiz1998?si=7levvkHdt68CPT2f" target="_blank" class="yt-btn">
-            ▶ YouTube Channel
-        </a>
+        <h1>Plugin Community Aziiz1998</h1>
+        
+        <div class="header-buttons">
+            <a href="https://youtube.com/@aziiz1998?si=d8s-CUmmjxW93j5h" target="_blank" class="btn-header btn-yt">
+                <i class="fab fa-youtube"></i> YouTube
+            </a>
+            <a href="https://www.tiktok.com/@aziiz_1998_?_r=1&_t=ZS-941zZQU8ni8" target="_blank" class="btn-header btn-tt">
+                <i class="fab fa-tiktok"></i> TikTok
+            </a>
+            <a href="https://play.google.com/store/apps/details?id=info.flowersoft.theotown.theotown" target="_blank" class="btn-header btn-game">
+                <i class="fab fa-google-play"></i> Download Game
+            </a>
+        </div>
+
+        <div class="search-container">
+            <i class="fas fa-search search-icon"></i>
+            <input type="text" id="searchInput" class="search-input" placeholder="Cari nama plugin, kategori, atau pembuat...">
+        </div>
+
+        <p class="warning-text">Dilarang Re upload</p>
     </header>
 
-    <!-- AREA IKLAN ATAS -->
-    <div class="ad-banner">
-        <!-- Ganti data-ad-slot dengan kode slot iklan Anda -->
-        <ins class="adsbygoogle"
-             style="display:block"
-             data-ad-client="ca-pub-4578844258469509"
-             data-ad-slot="ISI_DENGAN_KODE_SLOT_ANDA"
-             data-ad-format="auto"
-             data-full-width-responsive="true"></ins>
-        <script>
-             (adsbygoogle = window.adsbygoogle || []).push({});
-        </script>
+    <div class="container">
+        <div id="plugin-list">
+            <div class="status-box">⏳ Sedang menghubungi Google Sheets...</div>
+        </div>
+        
+        <!-- Container untuk tombol halaman -->
+        <div id="pagination-controls" class="pagination-container"></div>
     </div>
 
-    <main class="container">
-        <div class="plugin-grid">
-            
-            <!-- Plugin 1: God of War Kratos -->
-            <div class="card">
-                <img src="https://i.ibb.co/gFHBNV50/IMG-20260120-200041.jpg" alt="God of War Kratos" class="card-image">
-                <div class="card-content">
-                    <span class="category cat-kuburan">KUBURAN</span>
-                    <h2 class="card-title">PLUGIN GOD OF WAR KRATOS</h2>
-                    <div class="description">
-                        DES: Polusi, Suara, Kesehatan, Polisi, Kebakaran, Taman, Olahraga, Pendidikan Rendah & Tinggi, Budaya, Keagamaan, Transpostasi Bus, Radioaktif, Alam, Pemakaman, Air dan Listrik 23.000
-                    </div>
-                    <a href="https://sfl.gl/mnc8LTs" target="_blank" class="download-btn">Download</a>
-                </div>
-            </div>
-
-            <!-- Plugin 2: Polisi X Pemadam -->
-            <div class="card">
-                <img src="https://i.ibb.co/0pbqPFfF/IMG-20260120-200303.jpg" alt="Polisi X Pemadam" class="card-image">
-                <div class="card-content">
-                    <span class="category cat-pemadam">PEMADAM</span>
-                    <h2 class="card-title">PLUGIN POLISI X PEMADAM</h2>
-                    <div class="description">
-                        DES: Polisi, Pemadam
-                    </div>
-                    <a href="https://sfl.gl/7M0JQ7N" target="_blank" class="download-btn">Download</a>
-                </div>
-            </div>
-
-            <!-- Plugin 3: Presiden Bu Mega V1 -->
-            <div class="card">
-                <img src="https://i.ibb.co/23VQ99Xb/IMG-20260120-200411.jpg" alt="Presiden Bu Mega V1" class="card-image">
-                <div class="card-content">
-                    <span class="category cat-landmark">LANDMARK</span>
-                    <h2 class="card-title">PLUGIN PRESIDEN BU MEGA V1</h2>
-                    <div class="description">
-                        DES: Taman, Budaya
-                    </div>
-                    <a href="https://sfl.gl/3u2vV" target="_blank" class="download-btn">Download</a>
-                </div>
-            </div>
-
-            <!-- Plugin 4: Goblin -->
-            <div class="card">
-                <img src="https://i.ibb.co/84KWcGTx/IMG-20260120-210506.jpg" alt="Goblin" class="card-image">
-                <div class="card-content">
-                    <span class="category cat-pendidikan">PENDIDIKAN</span>
-                    <h2 class="card-title">PLUGIN GOBLIN</h2>
-                    <div class="description">
-                        DES: Pendidikan Tinggi dan Rendah, Taman, Income
-                    </div>
-                    <a href="https://sfl.gl/0SoBwk0C" target="_blank" class="download-btn">Download</a>
-                </div>
-            </div>
-
-            <!-- Plugin Goblin V2 -->
-            <div class="card">
-                <img src="https://i.ibb.co/7x9d44rh/IMG-Goblin-V2.jpg" alt="Goblin V2" class="card-image">
-                <div class="card-content">
-                    <span class="category cat-taman">Dekorasi</span>
-                    <h2 class="card-title">PLUGIN GOBLIN V2</h2>
-                    <div class="description">
-                        DES: Polusi, Suara, Kesehatan, Polisi, income, Kebakaran, Taman, Olahraga, Pendidikan Rendah, Pendidikan Tinggi, Budaya, Keagamaan, Transpostasi Bus, Radioaktif, Alam, Pemakaman
-                    </div>
-                    <a href="https://sfl.gl/PWes" target="_blank" class="download-btn">Download</a>
-                </div>
-            </div>
-
-            <!-- Plugin 5: Penduduk TTT Remake -->
-            <div class="card">
-                <img src="https://i.ibb.co/Z6KtMDTH/IMG-20260120-210729.jpg" alt="Penduduk TTT Remake" class="card-image">
-                <div class="card-content">
-                    <span class="category cat-rumah">PERUMAHAN TTT</span>
-                    <h2 class="card-title">PLUGIN PENDUDUK TTT REMAKE</h2>
-                    <div class="description">
-                        DES: Penduduk TTT (Kapasitas sesuai versi)
-                    </div>
-                    <a href="https://sfl.gl/xrZlpNf" target="_blank" class="download-btn">Download</a>
-                </div>
-            </div>
-
-            <!-- Plugin 6: Listrik Dan Air -->
-            <div class="card">
-                <img src="https://i.ibb.co/1JbGgC4T/IMG-20260120-WA0013.jpg" alt="Listrik Dan Air" class="card-image">
-                <div class="card-content">
-                    <span class="category cat-air">AIR & LISTRIK</span>
-                    <h2 class="card-title">PLUGIN LISTRIK DAN AIR</h2>
-                    <div class="description">
-                        DES: Air dan Listrik Upgrade Max 20.000, Taman
-                    </div>
-                    <a href="https://sfl.gl/VTNs" target="_blank" class="download-btn">Download</a>
-                </div>
-            </div>
-
-            <!-- Plugin 7: Presiden Mega V2 -->
-            <div class="card">
-                <img src="https://i.ibb.co/844YMBMY/IMG-20260120-WA0024.jpg" alt="Presiden Mega V2" class="card-image">
-                <div class="card-content">
-                    <span class="category cat-air">AIR</span>
-                    <h2 class="card-title">PLUGIN PRESIDEN MEGA V2</h2>
-                    <div class="description">
-                        DES: Taman, Budaya, Air dan Listrik 65.2000 Max Update
-                    </div>
-                    <a href="https://sfl.gl/B5RFOvT" target="_blank" class="download-btn">Download</a>
-                </div>
-            </div>
-
-            <!-- Plugin 8: Rumah Sakit -->
-            <div class="card">
-                <img src="https://i.ibb.co/SwZrD4yV/IMG-20260120-WA0025.jpg" alt="Rumah Sakit" class="card-image">
-                <div class="card-content">
-                    <span class="category cat-rs">RUMAH SAKIT</span>
-                    <h2 class="card-title">PLUGIN RUMAH SAKIT</h2>
-                    <div class="description">
-                        DES: Rumah Sakit Kapasitas sesuai Ver / Ver Lama (800.000) Penduduk
-                    </div>
-                    <a href="https://sfl.gl/RVISuM9" target="_blank" class="download-btn">Download</a>
-                </div>
-            </div>
-
-            <!-- Plugin 9: Penduduk T -->
-            <div class="card">
-                <img src="https://i.ibb.co/nMtk7DYj/IMG-20260120-WA0026-1.jpg" alt="Penduduk T" class="card-image">
-                <div class="card-content">
-                    <span class="category cat-rumah">PENDUDUK T</span>
-                    <h2 class="card-title">PLUGIN PENDUDUK T</h2>
-                    <div class="description">
-                        DES: Taman, Olahraga, Air dan Listrik, Penduduk sesuai ver 20.000 penduduk maks
-                    </div>
-                    <a href="https://sfl.gl/QOATYRCP" target="_blank" class="download-btn">Download</a>
-                </div>
-            </div>
-
-            <!-- Plugin 10: Tuan Crab -->
-            <div class="card">
-                <img src="https://i.ibb.co/5gvwBjmb/IMG-20260122-073837.jpg" alt="Tuan Crab" class="card-image">
-                <div class="card-content">
-                    <span class="category cat-taman">TAMAN</span>
-                    <h2 class="card-title">PLUGIN TUAN CRAB</h2>
-                    <div class="description">
-                        DES: Taman, Budaya
-                    </div>
-                    <a href="https://sfl.gl/4Ml8AZ" target="_blank" class="download-btn">Download</a>
-                </div>
-            </div>
-
-            <!-- Plugin 11: Maoi -->
-            <div class="card">
-                <img src="https://i.ibb.co/FLQGG0hF/IMG-20260123-WA0027.jpg" alt="Maoi" class="card-image">
-                <div class="card-content">
-                    <span class="category cat-sampah">TEMPAT SAMPAH</span>
-                    <h2 class="card-title">PLUGIN MAOI</h2>
-                    <div class="description">
-                        DES: Pendidikan Rendah & Tinggi, Polisi, Olahraga, Agama, Budaya, Suara, Polusi, Radioactive, Air dan Listrik, Pemadam, Taman, Transpostasi, Olahraga, Alam, Tempat Sampah, Kuburan
-                    </div>
-                    <a href="https://sfl.gl/H8RGXtI" target="_blank" class="download-btn">Download</a>
-                </div>
-            </div>
-
-            <!-- Plugin 12: Komersial 3 Ramen -->
-            <div class="card">
-                <img src="https://i.ibb.co/FLsKNh3k/20260128-123106.jpg" alt="Komersial 3 Ramen" class="card-image">
-                <div class="card-content">
-                    <span class="category cat-komersial">KOMERSIAL TTT</span>
-                    <h2 class="card-title">PLUGIN KOMERSIAL 3 RAMEN</h2>
-                    <div class="description">
-                        DES: Taman, Olahraga, Budaya, Air dan Listrik
-                    </div>
-                    <a href="https://sfl.gl/RH9h" target="_blank" class="download-btn">Download</a>
-                </div>
-            </div>
-
-            <!-- Plugin 13: Penduduk TT Rumah Naruto -->
-            <div class="card">
-                <img src="https://i.ibb.co/vCQ9ts68/IMG-20260130-WA0000.jpg" alt="Penduduk TT Rumah Naruto" class="card-image">
-                <div class="card-content">
-                    <span class="category cat-rumah">PENDUDUK TT</span>
-                    <h2 class="card-title">PLUGIN PENDUDUK TT RUMAH NARUTO</h2>
-                    <div class="description">
-                        DES: Penduduk TT 16.000, Taman, Olahraga, Air dan Listrik (159.000), Budaya, Agama, Transpostasi
-                    </div>
-                    <a href="https://sfl.gl/0zEkF6" target="_blank" class="download-btn">Download</a>
-                </div>
-            </div>
-
-            <!-- Plugin 14: King MU -->
-            <div class="card">
-                <img src="https://i.ibb.co/JFr8ScRY/IMG-20260205-030416.jpg" alt="Plugin King MU" class="card-image">
-                <div class="card-content">
-                    <span class="category cat-olahraga">OLAHRAGA</span>
-                    <h2 class="card-title">PLUGIN KING MU</h2>
-                    <div class="description">
-                        DES: Kuburan, Kesehatan, Polisi, Kebakaran, Taman, Olahraga, Pendidikan Tinggi dan Rendah, Budaya, Agama, Transport Bus, Radioaktif, Alam, Pemakaman, Air dan Listrik
-                    </div>
-                    <a href="https://sfl.gl/ARjPI" target="_blank" class="download-btn">Download</a>
-                </div>
-            </div>
-
-            <!-- Plugin 15: Industri TTT (Diperbaiki) -->
-            <div class="card">
-                <img src="https://i.ibb.co/wNGtHgGK/IMG-20260214-093346.jpg" alt="Industri TTT" class="card-image">
-                <div class="card-content">
-                    <span class="category cat-industri">INDUSTRI</span>
-                    <h2 class="card-title">PLUGIN INDUSTRI TTT</h2>
-                    <div class="description">
-                        DES: Industri, Pekerjaan, dll. (Pastikan deskripsi lengkap di sini)
-                    </div>
-                    <!-- Link download sementara diisi #, ganti jika ada link -->
-                    <a href="https://sfl.gl/6I4r3em" target="_blank" class="download-btn">Download</a>
-                </div>
-            </div>
-
-            <!-- Plugin BARU: RS AZIIZ1998 -->
-            <div class="card">
-                <img src="https://i.ibb.co/CsDTZbjK/IMG-20260217-173626.jpg" alt="RS AZIIZ1998" class="card-image">
-                <div class="card-content">
-                    <span class="category cat-rs">RUMAH SAKIT</span>
-                    <h2 class="card-title">PLUGIN RS AZIIZ1998</h2>
-                    <div class="description">
-                        DES: Kesehatan, Kuburan, Polisi, Pemadam, Taman, Olahraga, Pendidikan Tinggi dan Rendah, Budaya, Agama, Transport, Radioaktif, Pemakaman DLL
-                    </div>
-                    <a href="https://sfl.gl/rPbe" target="_blank" class="download-btn">Download</a>
-                </div>
-            </div>
-
-        </div>
-    </main>
-
-    <footer>
-        &copy; 2024 Aziiz1998 - All Rights Reserved
+    <footer class="main-footer">
+        &copy; 2023 Plugin Community Aziiz1998. All rights reserved.
     </footer>
 
+    <script>
+        const SHEET_ID = '1bqHZZ_cKQFBVV_3DTfmD6E6Wl4iriykMIHdd-qoPbJU';
+        const SHEET_NAME = 'Sheet1';
+        const SHEET_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=${SHEET_NAME}`;
+
+        let allPluginsData = [];
+        let currentPage = 1;
+        const itemsPerPage = 17; // Batas 17 plugin per halaman
+        let currentFilteredData = []; // Menyimpan data hasil pencarian atau data asli
+
+        // Fungsi untuk merender kartu berdasarkan halaman
+        function renderCards(data, page) {
+            const container = document.getElementById('plugin-list');
+            container.innerHTML = ''; 
+
+            if (data.length === 0) {
+                container.innerHTML = `<div class="status-box error">Plugin tidak ditemukan.</div>`;
+                return;
+            }
+
+            // Kalkulasi slice data
+            const startIndex = (page - 1) * itemsPerPage;
+            const endIndex = startIndex + itemsPerPage;
+            const paginatedData = data.slice(startIndex, endIndex);
+
+            let htmlContent = '<div class="plugin-grid">';
+            
+            paginatedData.forEach(row => {
+                if (row['Nama Plugin'] && row['Nama Plugin'].trim() !== '') {
+                    const nama = row['Nama Plugin'];
+                    const foto = row['Link Foto'] || 'https://via.placeholder.com/400x200?text=No+Image';
+                    const desk = row['Deskripsi'] || 'Tidak ada deskripsi';
+                    const down = row['Link Download'] || '#';
+                    const pembuat = row['Nama Pembuat'] || 'Anonymous';
+                    const kategori = row['Kategori'] || 'Uncategorized';
+
+                    const isSpecial = pembuat.toLowerCase() === 'aziiz1998';
+                    const cardClass = isSpecial ? 'card special-card' : 'card';
+                    const badgeHTML = isSpecial ? '<div class="official-badge"><i class="fas fa-crown"></i> OFFICIAL</div>' : '';
+
+                    htmlContent += `
+                        <article class="${cardClass}">
+                            <div class="img-container">
+                                <img src="${foto}" alt="${nama}">
+                                <div class="badge-overlay">
+                                    <div class="category-tag">${kategori}</div>
+                                    ${badgeHTML}
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <h2>${nama}</h2>
+                                <div class="creator-name">Dibuat oleh: ${pembuat}</div>
+                                <p>${desk}</p>
+                                <div class="card-footer">
+                                    <a href="${down}" class="btn-download" target="_blank">GET PLUGIN</a>
+                                </div>
+                            </div>
+                        </article>
+                    `;
+                }
+            });
+
+            htmlContent += '</div>';
+            container.innerHTML = htmlContent;
+        }
+
+        // Fungsi untuk merender tombol pagination
+        function renderPagination(totalItems) {
+            const paginationContainer = document.getElementById('pagination-controls');
+            const totalPages = Math.ceil(totalItems / itemsPerPage);
+
+            // Jika total halaman hanya 1, sembunyikan pagination
+            if (totalPages <= 1) {
+                paginationContainer.innerHTML = '';
+                return;
+            }
+
+            let html = '';
+
+            // Tombol Previous
+            html += `<button class="pagination-btn" onclick="changePage(${currentPage - 1})" ${currentPage === 1 ? 'disabled' : ''}>
+                        <i class="fas fa-chevron-left"></i> Prev
+                     </button>`;
+
+            // Tombol Angka (Logika sederhana agar tidak terlalu banyak)
+            // Tampilkan halaman pertama, tengah, dan terakhir
+            let startPage = Math.max(1, currentPage - 2);
+            let endPage = Math.min(totalPages, currentPage + 2);
+
+            if (startPage > 1) {
+                html += `<button class="pagination-btn" onclick="changePage(1)">1</button>`;
+                if (startPage > 2) html += `<span style="color: #fff; padding: 0 10px;">...</span>`;
+            }
+
+            for (let i = startPage; i <= endPage; i++) {
+                html += `<button class="pagination-btn ${i === currentPage ? 'active' : ''}" onclick="changePage(${i})">${i}</button>`;
+            }
+
+            if (endPage < totalPages) {
+                if (endPage < totalPages - 1) html += `<span style="color: #fff; padding: 0 10px;">...</span>`;
+                html += `<button class="pagination-btn" onclick="changePage(${totalPages})">${totalPages}</button>`;
+            }
+
+            // Tombol Next
+            html += `<button class="pagination-btn" onclick="changePage(${currentPage + 1})" ${currentPage === totalPages ? 'disabled' : ''}>
+                        Next <i class="fas fa-chevron-right"></i>
+                     </button>`;
+
+            paginationContainer.innerHTML = html;
+        }
+
+        // Fungsi ganti halaman
+        function changePage(pageNumber) {
+            currentPage = pageNumber;
+            renderCards(currentFilteredData, currentPage);
+            renderPagination(currentFilteredData.length);
+            
+            // Scroll ke atas halaman
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Event Listener Search
+        document.getElementById('searchInput').addEventListener('keyup', function(e) {
+            const searchTerm = e.target.value.toLowerCase();
+            
+            if (!searchTerm) {
+                currentFilteredData = allPluginsData;
+            } else {
+                currentFilteredData = allPluginsData.filter(row => {
+                    const namaPlugin = (row['Nama Plugin'] || '').toLowerCase();
+                    const deskripsi = (row['Deskripsi'] || '').toLowerCase();
+                    const pembuat = (row['Nama Pembuat'] || '').toLowerCase();
+                    const kategori = (row['Kategori'] || '').toLowerCase();
+                    
+                    return namaPlugin.includes(searchTerm) || deskripsi.includes(searchTerm) || pembuat.includes(searchTerm) || kategori.includes(searchTerm);
+                });
+            }
+
+            currentPage = 1; // Reset ke halaman 1 saat search
+            renderCards(currentFilteredData, currentPage);
+            renderPagination(currentFilteredData.length);
+        });
+
+        // Fetch Data Awal
+        fetch(SHEET_URL)
+            .then(response => {
+                if (!response.ok) throw new Error('Gagal mengambil data.');
+                return response.text();
+            })
+            .then(csvText => {
+                Papa.parse(csvText, {
+                    header: true,
+                    skipEmptyLines: true,
+                    complete: function(results) {
+                        if (results.data.length === 0) {
+                            document.getElementById('plugin-list').innerHTML = `<div class="status-box error">Data kosong.</div>`;
+                            return;
+                        }
+                        
+                        allPluginsData = results.data;
+                        currentFilteredData = allPluginsData; // Inisialisasi data filter
+                        
+                        renderCards(currentFilteredData, currentPage);
+                        renderPagination(currentFilteredData.length);
+                    }
+                });
+            })
+            .catch(error => {
+                document.getElementById('plugin-list').innerHTML = `
+                    <div class="status-box error">
+                        <strong>ERROR:</strong> Pastikan Sheet sudah Publish dan nama tab <b>Sheet1</b>.
+                    </div>
+                `;
+                console.error(error);
+            });
+    </script>
 </body>
 </html>
