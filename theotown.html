@@ -29,7 +29,7 @@
             color: var(--text-main);
             background-image: radial-gradient(circle at 10% 20%, rgba(0, 255, 157, 0.05) 0%, transparent 40%);
             min-height: 100vh;
-            padding-bottom: 100px;
+            padding-bottom: 20px; 
         }
 
         header {
@@ -77,7 +77,7 @@
         .btn-game { background-color: var(--accent-glow); color: #000; }
         .btn-game:hover { box-shadow: 0 0 15px rgba(0, 255, 157, 0.4); }
 
-        /* === AFFILIATE SLIDER STYLE (FIXED) === */
+        /* === AFFILIATE SLIDER STYLE === */
         .affiliate-slider-container {
             width: 100%;
             overflow: hidden;
@@ -86,7 +86,7 @@
             margin-bottom: 1.5rem;
             border-top: 1px solid var(--card-border);
             border-bottom: 1px solid var(--card-border);
-            display: none; /* Hidden by default */
+            display: none; 
         }
         
         .affiliate-slider-container.loaded { display: block; }
@@ -94,7 +94,6 @@
         .affiliate-track {
             display: flex;
             width: max-content;
-            /* Animasi standar scroll Kiri ke Kanan (Mulus) */
             animation: scrollSlider 20s linear infinite;
         }
 
@@ -102,10 +101,9 @@
             animation-play-state: paused;
         }
 
-        /* Keyframes agar tidak hilang di tengah */
         @keyframes scrollSlider {
             0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); } /* Gerak ke kiri sampai ujung */
+            100% { transform: translateX(-50%); }
         }
 
         .affiliate-slide {
@@ -175,7 +173,7 @@
         .container {
             max-width: 1300px;
             margin: 0 auto;
-            padding: 0 2rem 4rem;
+            padding: 0 2rem 2rem;
         }
 
         .status-box {
@@ -411,7 +409,7 @@
             color: var(--text-muted);
             font-size: 0.8rem;
             border-top: 1px solid var(--card-border);
-            margin-top: 3rem;
+            margin-top: 1rem;
         }
 
         @media (max-width: 768px) {
@@ -424,8 +422,7 @@
 </head>
 <body>
 
-    <!-- HIDDEN YOUTUBE PLAYER (Pemutar musik invisible) -->
-    <!-- Video ID: 13ARO0HDZsQ -->
+    <!-- HIDDEN YOUTUBE PLAYER -->
     <div id="hidden-youtube-player" style="display: none;"></div>
 
     <!-- Floating Music Button -->
@@ -451,9 +448,9 @@
             </a>
         </div>
 
-        <!-- AFFILIATE SLIDER CONTAINER -->
-        <div id="affiliate-slider" class="affiliate-slider-container">
-            <div id="affiliate-track" class="affiliate-track"></div>
+        <!-- AFFILIATE SLIDER 1 (Atas) -->
+        <div id="affiliate-slider-1" class="affiliate-slider-container">
+            <div id="affiliate-track-1" class="affiliate-track"></div>
         </div>
 
         <div class="search-container">
@@ -465,10 +462,14 @@
     </header>
 
     <div class="container">
-        <div id="plugin-list">
-            <div class="status-box">⏳ Sedang menghubungi Google Sheets...</div>
-        </div>
+        <!-- ISI DIBIARKAN KOSONG (Tidak ada tulisan memuat) -->
+        <div id="plugin-list"></div>
         <div id="pagination-controls" class="pagination-container"></div>
+    </div>
+
+    <!-- AFFILIATE SLIDER 2 (Bawah) - TULISAN DIHAPUS -->
+    <div id="affiliate-slider-2" class="affiliate-slider-container" style="margin-top: 2rem; margin-bottom: 0; border-top: none;">
+        <div id="affiliate-track-2" class="affiliate-track"></div>
     </div>
 
     <footer class="main-footer">
@@ -485,95 +486,86 @@
 
         function onYouTubeIframeAPIReady() {
             player = new YT.Player('hidden-youtube-player', {
-                videoId: '13ARO0HDZsQ', // ID Video Anda
-                playerVars: {
-                    'autoplay': 0,
-                    'controls': 0,
-                    'disablekb': 1,
-                    'fs': 0,
-                    'modestbranding': 1,
-                    'loop': 1,
-                    'playlist': '13ARO0HDZsQ' // Loop butuh playlist
-                },
+                videoId: '13ARO0HDZsQ', 
+                playerVars: { 'autoplay': 0, 'controls': 0, 'loop': 1, 'playlist': '13ARO0HDZsQ' },
                 events: {
-                    'onReady': function(event) {
-                        isPlayerReady = true;
-                    }
+                    'onReady': function(event) { isPlayerReady = true; }
                 }
             });
         }
 
         function toggleMusic() {
-            if (!isPlayerReady) {
-                alert("Musik sedang loading, coba lagi 2 detik lagi.");
-                return;
-            }
-
+            if (!isPlayerReady) { alert("Musik loading..."); return; }
             const btn = document.getElementById('musicBtn');
             const icon = document.getElementById('musicIcon');
             const viz = document.getElementById('visualizer');
 
             if (isPlaying) {
                 player.pauseVideo();
-                icon.style.display = "block";
-                viz.style.display = "none";
-                btn.classList.remove('playing');
+                icon.style.display = "block"; viz.style.display = "none"; btn.classList.remove('playing');
             } else {
                 player.playVideo();
-                icon.style.display = "none";
-                viz.style.display = "flex";
-                btn.classList.add('playing');
+                icon.style.display = "none"; viz.style.display = "flex"; btn.classList.add('playing');
             }
             isPlaying = !isPlaying;
         }
 
         // --- SCRIPT DATA UTAMA ---
-        const PLUGIN_SHEET_ID = '1bqHZZ_cKQFBVV_3DTfmD6E6Wl4iriykMIHdd-qoPbJU';
-        const AFFILIATE_SHEET_ID = '1S-kFFMalmJSddXFzoSUF8vDrmQCugxnISWLkzwZYOO0';
+        
+        // ID Spreadsheet
+        const PLUGIN_ID = '1bqHZZ_cKQFBVV_3DTfmD6E6Wl4iriykMIHdd-qoPbJU';
+        const AFFILIATE_1_ID = '1S-kFFMalmJSddXFzoSUF8vDrmQCugxnISWLkzwZYOO0';
+        const AFFILIATE_2_ID = '1dIa9VYNu96CPynDU-fS5UVLW5rnvRorEeOPVsJ-you0';
 
-        const PLUGIN_URL = `https://docs.google.com/spreadsheets/d/${PLUGIN_SHEET_ID}/gviz/tq?tqx=out:csv&sheet=Sheet1`;
-        const AFFILIATE_URL = `https://docs.google.com/spreadsheets/d/${AFFILIATE_SHEET_ID}/gviz/tq?tqx=out:csv&sheet=Sheet1`;
+        // URL Generator
+        const getSheetURL = (id) => `https://docs.google.com/spreadsheets/d/${id}/gviz/tq?tqx=out:csv&sheet=Sheet1`;
 
         let allPluginsData = [];
         let currentPage = 1;
         const itemsPerPage = 17;
         let currentFilteredData = [];
 
-        // --- FETCH AFFILIATE DATA ---
-        fetch(AFFILIATE_URL)
-            .then(res => res.text())
-            .then(csv => {
-                Papa.parse(csv, {
-                    header: true,
-                    complete: function(results) {
-                        if(results.data && results.data.length > 0) {
-                            let htmlContent = '';
-                            results.data.forEach(row => {
-                                if(row['Image']) {
-                                    const img = row['Image'];
-                                    const link = row['Link'] || '#';
-                                    htmlContent += `
-                                        <div class="affiliate-slide">
-                                            <a href="${link}" target="_blank">
-                                                <img src="${img}" alt="Affiliate">
-                                            </a>
-                                        </div>
-                                    `;
-                                }
-                            });
+        // --- FUNGSI LOAD AFFILIATE ---
+        function loadAffiliate(sheetID, trackID, containerID) {
+            fetch(getSheetURL(sheetID))
+                .then(res => res.text())
+                .then(csv => {
+                    Papa.parse(csv, {
+                        header: true,
+                        complete: function(results) {
+                            if(results.data && results.data.length > 0) {
+                                let htmlContent = '';
+                                results.data.forEach(row => {
+                                    if(row['Image']) {
+                                        const img = row['Image'];
+                                        const link = row['Link'] || '#';
+                                        htmlContent += `
+                                            <div class="affiliate-slide">
+                                                <a href="${link}" target="_blank">
+                                                    <img src="${img}" alt="Affiliate">
+                                                </a>
+                                            </div>
+                                        `;
+                                    }
+                                });
 
-                            if(htmlContent) {
-                                const track = document.getElementById('affiliate-track');
-                                const slider = document.getElementById('affiliate-slider');
-                                // Gandakan konten (Duplikasi) agar animasi seamless
-                                track.innerHTML = htmlContent + htmlContent;
-                                slider.classList.add('loaded');
+                                if(htmlContent) {
+                                    const track = document.getElementById(trackID);
+                                    const container = document.getElementById(containerID);
+                                    track.innerHTML = htmlContent + htmlContent; // Duplikat
+                                    container.classList.add('loaded');
+                                }
                             }
                         }
-                    }
+                    });
                 });
-            }).catch(err => console.error("Gagal load affiliate:", err));
+        }
 
+        // Load Affiliate 1 (Atas)
+        loadAffiliate(AFFILIATE_1_ID, 'affiliate-track-1', 'affiliate-slider-1');
+        
+        // Load Affiliate 2 (Bawah)
+        loadAffiliate(AFFILIATE_2_ID, 'affiliate-track-2', 'affiliate-slider-2');
 
         // --- FETCH PLUGIN DATA ---
         
@@ -686,7 +678,7 @@
             renderPagination(currentFilteredData.length);
         });
 
-        fetch(PLUGIN_URL)
+        fetch(getSheetURL(PLUGIN_ID))
             .then(response => { if (!response.ok) throw new Error('Gagal'); return response.text(); })
             .then(csvText => {
                 Papa.parse(csvText, {
