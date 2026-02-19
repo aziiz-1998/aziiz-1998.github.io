@@ -77,47 +77,52 @@
         .btn-game { background-color: var(--accent-glow); color: #000; }
         .btn-game:hover { box-shadow: 0 0 15px rgba(0, 255, 157, 0.4); }
 
-        /* === AFFILIATE SLIDER STYLE === */
+        /* === AFFILIATE SLIDER STYLE (FIXED) === */
         .affiliate-slider-container {
             width: 100%;
             overflow: hidden;
-            background: rgba(255, 255, 255, 0.02);
-            padding: 10px 0;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 15px 0;
             margin-bottom: 1.5rem;
             border-top: 1px solid var(--card-border);
             border-bottom: 1px solid var(--card-border);
+            display: none; /* Hidden by default */
         }
+        
+        .affiliate-slider-container.loaded { display: block; }
 
         .affiliate-track {
             display: flex;
-            width: max-content; /* Lebar menyesuaikan konten */
-            animation: scrollLeftToRight 20s linear infinite;
+            width: max-content;
+            /* Animasi standar scroll Kiri ke Kanan (Mulus) */
+            animation: scrollSlider 20s linear infinite;
         }
 
-        /* Pause animation on hover */
         .affiliate-slider-container:hover .affiliate-track {
             animation-play-state: paused;
         }
 
-        @keyframes scrollLeftToRight {
-            0% { transform: translateX(-50%); } /* Mulai dari setengah jalan (karena konten dobel) */
-            100% { transform: translateX(0%); }
+        /* Keyframes agar tidak hilang di tengah */
+        @keyframes scrollSlider {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); } /* Gerak ke kiri sampai ujung */
         }
 
         .affiliate-slide {
-            height: 80px; /* Tinggi banner */
-            margin: 0 15px; /* Jarak antar gambar */
+            height: 100px;
+            margin: 0 15px;
             border-radius: 10px;
             overflow: hidden;
             box-shadow: 0 4px 10px rgba(0,0,0,0.3);
             transition: transform 0.3s, box-shadow 0.3s;
             background: #1a1a1a;
-            flex-shrink: 0; /* Agar gambar tidak mengecil */
+            flex-shrink: 0;
+            border: 1px solid var(--card-border);
         }
 
         .affiliate-slide:hover {
             transform: scale(1.05);
-            box-shadow: 0 0 15px var(--accent-glow);
+            box-shadow: 0 0 20px var(--accent-glow);
             z-index: 2;
         }
 
@@ -343,7 +348,6 @@
             box-shadow: 0 0 15px rgba(0, 255, 157, 0.4);
         }
 
-        /* PAGINATION */
         .pagination-container {
             display: flex;
             justify-content: center;
@@ -414,16 +418,15 @@
             header h1 { font-size: 2rem; }
             .plugin-grid { grid-template-columns: 1fr; }
             .music-float-btn { width: 50px; height: 50px; bottom: 20px; right: 20px; }
-            .affiliate-slide { height: 60px; }
+            .affiliate-slide { height: 70px; }
         }
     </style>
 </head>
 <body>
 
-    <!-- AUDIO ELEMENT -->
-    <audio id="bgMusic" loop>
-        <source src="MASUKAN_LINK_MUSIK_ANDA_DISINI" type="audio/mpeg">
-    </audio>
+    <!-- HIDDEN YOUTUBE PLAYER (Pemutar musik invisible) -->
+    <!-- Video ID: 13ARO0HDZsQ -->
+    <div id="hidden-youtube-player" style="display: none;"></div>
 
     <!-- Floating Music Button -->
     <div id="musicBtn" class="music-float-btn" onclick="toggleMusic()">
@@ -450,9 +453,7 @@
 
         <!-- AFFILIATE SLIDER CONTAINER -->
         <div id="affiliate-slider" class="affiliate-slider-container">
-            <div id="affiliate-track" class="affiliate-track">
-                <!-- Konten akan diisi oleh Javascript -->
-            </div>
+            <div id="affiliate-track" class="affiliate-track"></div>
         </div>
 
         <div class="search-container">
@@ -474,22 +475,51 @@
         &copy; 2023 Plugin Community Aziiz1998. All rights reserved.
     </footer>
 
+    <!-- YOUTUBE IFRAME API -->
+    <script src="https://www.youtube.com/iframe_api"></script>
     <script>
-        // --- SCRIPT MUSIK ---
-        const music = document.getElementById('bgMusic');
-        const btn = document.getElementById('musicBtn');
-        const icon = document.getElementById('musicIcon');
-        const viz = document.getElementById('visualizer');
+        // --- SCRIPT MUSIK YOUTUBE ---
+        let player;
+        let isPlayerReady = false;
         let isPlaying = false;
 
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('hidden-youtube-player', {
+                videoId: '13ARO0HDZsQ', // ID Video Anda
+                playerVars: {
+                    'autoplay': 0,
+                    'controls': 0,
+                    'disablekb': 1,
+                    'fs': 0,
+                    'modestbranding': 1,
+                    'loop': 1,
+                    'playlist': '13ARO0HDZsQ' // Loop butuh playlist
+                },
+                events: {
+                    'onReady': function(event) {
+                        isPlayerReady = true;
+                    }
+                }
+            });
+        }
+
         function toggleMusic() {
+            if (!isPlayerReady) {
+                alert("Musik sedang loading, coba lagi 2 detik lagi.");
+                return;
+            }
+
+            const btn = document.getElementById('musicBtn');
+            const icon = document.getElementById('musicIcon');
+            const viz = document.getElementById('visualizer');
+
             if (isPlaying) {
-                music.pause();
+                player.pauseVideo();
                 icon.style.display = "block";
                 viz.style.display = "none";
                 btn.classList.remove('playing');
             } else {
-                music.play().catch(e => console.log("Autoplay blocked", e));
+                player.playVideo();
                 icon.style.display = "none";
                 viz.style.display = "flex";
                 btn.classList.add('playing');
@@ -498,49 +528,55 @@
         }
 
         // --- SCRIPT DATA UTAMA ---
-        const SHEET_ID = '1bqHZZ_cKQFBVV_3DTfmD6E6Wl4iriykMIHdd-qoPbJU';
-        
-        const PLUGIN_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=Sheet1`;
-        const AFFILIATE_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=Affiliate`;
+        const PLUGIN_SHEET_ID = '1bqHZZ_cKQFBVV_3DTfmD6E6Wl4iriykMIHdd-qoPbJU';
+        const AFFILIATE_SHEET_ID = '1S-kFFMalmJSddXFzoSUF8vDrmQCugxnISWLkzwZYOO0';
+
+        const PLUGIN_URL = `https://docs.google.com/spreadsheets/d/${PLUGIN_SHEET_ID}/gviz/tq?tqx=out:csv&sheet=Sheet1`;
+        const AFFILIATE_URL = `https://docs.google.com/spreadsheets/d/${AFFILIATE_SHEET_ID}/gviz/tq?tqx=out:csv&sheet=Sheet1`;
 
         let allPluginsData = [];
         let currentPage = 1;
         const itemsPerPage = 17;
         let currentFilteredData = [];
 
-        // 1. Fetch Affiliate Data (Slider)
+        // --- FETCH AFFILIATE DATA ---
         fetch(AFFILIATE_URL)
             .then(res => res.text())
             .then(csv => {
                 Papa.parse(csv, {
                     header: true,
                     complete: function(results) {
-                        const track = document.getElementById('affiliate-track');
-                        let htmlContent = '';
-                        
-                        // Loop semua data affiliate
-                        results.data.forEach(row => {
-                            if(row['Image'] && row['Link']) {
-                                htmlContent += `
-                                    <div class="affiliate-slide">
-                                        <a href="${row['Link']}" target="_blank">
-                                            <img src="${row['Image']}" alt="Affiliate">
-                                        </a>
-                                    </div>
-                                `;
-                            }
-                        });
+                        if(results.data && results.data.length > 0) {
+                            let htmlContent = '';
+                            results.data.forEach(row => {
+                                if(row['Image']) {
+                                    const img = row['Image'];
+                                    const link = row['Link'] || '#';
+                                    htmlContent += `
+                                        <div class="affiliate-slide">
+                                            <a href="${link}" target="_blank">
+                                                <img src="${img}" alt="Affiliate">
+                                            </a>
+                                        </div>
+                                    `;
+                                }
+                            });
 
-                        // Trik Marquee: Gandakan konten agar seamless/pergerakan mulus
-                        if(htmlContent) {
-                            track.innerHTML = htmlContent + htmlContent;
+                            if(htmlContent) {
+                                const track = document.getElementById('affiliate-track');
+                                const slider = document.getElementById('affiliate-slider');
+                                // Gandakan konten (Duplikasi) agar animasi seamless
+                                track.innerHTML = htmlContent + htmlContent;
+                                slider.classList.add('loaded');
+                            }
                         }
                     }
                 });
-            });
+            }).catch(err => console.error("Gagal load affiliate:", err));
 
 
-        // 2. Fetch Plugin Data
+        // --- FETCH PLUGIN DATA ---
+        
         function renderCards(data, page) {
             const container = document.getElementById('plugin-list');
             container.innerHTML = ''; 
@@ -669,7 +705,7 @@
                 });
             })
             .catch(error => {
-                document.getElementById('plugin-list').innerHTML = `<div class="status-box error">ERROR: Pastikan Sheet Publish & Nama Tab <b>Sheet1</b>.</div>`;
+                document.getElementById('plugin-list').innerHTML = `<div class="status-box error">ERROR: Pastikan Sheet Plugin Publish.</div>`;
             });
     </script>
 </body>
