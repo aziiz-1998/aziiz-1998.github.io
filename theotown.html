@@ -462,12 +462,11 @@
     </header>
 
     <div class="container">
-        <!-- ISI DIBIARKAN KOSONG (Tidak ada tulisan memuat) -->
         <div id="plugin-list"></div>
         <div id="pagination-controls" class="pagination-container"></div>
     </div>
 
-    <!-- AFFILIATE SLIDER 2 (Bawah) - TULISAN DIHAPUS -->
+    <!-- AFFILIATE SLIDER 2 (Bawah) -->
     <div id="affiliate-slider-2" class="affiliate-slider-container" style="margin-top: 2rem; margin-bottom: 0; border-top: none;">
         <div id="affiliate-track-2" class="affiliate-track"></div>
     </div>
@@ -542,7 +541,7 @@
                                         htmlContent += `
                                             <div class="affiliate-slide">
                                                 <a href="${link}" target="_blank">
-                                                    <img src="${img}" alt="Affiliate">
+                                                    <img src="${img}" alt="Affiliate" referrerpolicy="no-referrer">
                                                 </a>
                                             </div>
                                         `;
@@ -600,7 +599,7 @@
                     htmlContent += `
                         <article class="${cardClass}">
                             <div class="img-container">
-                                <img src="${foto}" alt="${nama}">
+                                <img src="${foto}" alt="${nama}" referrerpolicy="no-referrer">
                                 <div class="badge-overlay">
                                     <div class="category-tag">${kategori}</div>
                                     ${badgeHTML}
