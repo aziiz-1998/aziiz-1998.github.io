@@ -77,7 +77,7 @@
         .btn-game { background-color: var(--accent-glow); color: #000; }
         .btn-game:hover { box-shadow: 0 0 15px rgba(0, 255, 157, 0.4); }
 
-        /* === AFFILIATE SLIDER STYLE === */
+        /* AFFILIATE SLIDER */
         .affiliate-slider-container {
             width: 100%;
             overflow: hidden;
@@ -121,7 +121,6 @@
         .affiliate-slide:hover {
             transform: scale(1.05);
             box-shadow: 0 0 20px var(--accent-glow);
-            z-index: 2;
         }
 
         .affiliate-slide img {
@@ -146,7 +145,6 @@
             color: var(--text-main);
             font-size: 1rem;
             outline: none;
-            transition: border-color 0.3s;
         }
 
         .search-input::placeholder { color: var(--text-muted); }
@@ -209,10 +207,6 @@
             background: linear-gradient(145deg, rgba(255, 215, 0, 0.05), rgba(0, 0, 0, 0.8));
             box-shadow: 0 0 15px rgba(255, 215, 0, 0.15);
         }
-        .card.special-card:hover {
-            box-shadow: 0 0 25px rgba(255, 215, 0, 0.3);
-            border-color: #FFF;
-        }
 
         @keyframes fadeIn { to { opacity: 1; } }
 
@@ -221,7 +215,6 @@
             border-color: rgba(255, 255, 255, 0.3);
             box-shadow: 0 0 30px rgba(0, 255, 157, 0.1);
         }
-        .card:hover.special-card { transform: translateY(-10px); }
 
         .img-container {
             height: 220px;
@@ -264,7 +257,6 @@
             border-radius: 20px;
             font-size: 0.7rem;
             text-transform: uppercase;
-            letter-spacing: 1px;
             border: 1px solid rgba(255,255,255,0.2);
             color: #fff;
         }
@@ -280,7 +272,6 @@
             display: flex;
             align-items: center;
             gap: 5px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.5);
         }
 
         .card-body {
@@ -290,37 +281,27 @@
             flex-direction: column;
         }
 
-        .card-body h2 {
-            font-size: 1.4rem;
-            margin-bottom: 0.25rem;
-            font-weight: 600;
-        }
+        .card-body h2 { font-size: 1.4rem; margin-bottom: 0.25rem; font-weight: 600; }
         
         .creator-name {
             font-size: 0.85rem;
             color: var(--text-muted);
             margin-bottom: 1rem;
-            font-weight: 400;
         }
         
-        .card.special-card .creator-name {
-            color: var(--special-gold);
-            font-weight: 600;
-        }
+        .card.special-card .creator-name { color: var(--special-gold); font-weight: 600; }
 
         .card-body p {
             color: var(--text-muted);
             font-size: 0.9rem;
             line-height: 1.6;
             margin-bottom: 1.5rem;
-            font-weight: 300;
             flex-grow: 1;
         }
 
         .card-footer {
             display: flex;
             justify-content: center;
-            align-items: center;
             padding-top: 1rem;
             border-top: 1px solid rgba(255,255,255,0.1);
         }
@@ -368,25 +349,17 @@
         .pagination-btn.active { background: var(--accent-glow); color: #000; border-color: var(--accent-glow); }
         .pagination-btn:disabled { opacity: 0.3; cursor: not-allowed; }
 
-        /* FLOATING MUSIC PLAYER */
+        /* MUSIC PLAYER */
         .music-float-btn {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            width: 60px;
-            height: 60px;
+            position: fixed; bottom: 30px; right: 30px;
+            width: 60px; height: 60px;
             background: linear-gradient(145deg, #1e1e1e, #111);
             border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--accent-glow);
-            font-size: 1.5rem;
-            cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            color: var(--accent-glow); font-size: 1.5rem; cursor: pointer;
             z-index: 999;
             box-shadow: 0 5px 20px rgba(0, 255, 157, 0.2);
             border: 1px solid var(--accent-glow);
-            transition: transform 0.2s;
         }
         .music-float-btn:hover { transform: scale(1.1); }
         .music-float-btn.playing { animation: pulse 1.5s infinite; }
@@ -398,34 +371,26 @@
         }
         .visualizer { display: flex; gap: 3px; height: 20px; align-items: flex-end; }
         .bar { width: 3px; background: var(--accent-glow); animation: sound 0.5s infinite alternate; }
-        .bar:nth-child(1) { height: 60%; animation-duration: 0.4s; }
-        .bar:nth-child(2) { height: 100%; animation-duration: 0.6s; }
-        .bar:nth-child(3) { height: 40%; animation-duration: 0.3s; }
+        .bar:nth-child(1) { height: 60%; } .bar:nth-child(2) { height: 100%; } .bar:nth-child(3) { height: 40%; }
         @keyframes sound { from { height: 5px; } to { height: 20px; } }
 
         footer.main-footer {
-            text-align: center;
-            padding: 2rem;
-            color: var(--text-muted);
-            font-size: 0.8rem;
-            border-top: 1px solid var(--card-border);
-            margin-top: 1rem;
+            text-align: center; padding: 2rem;
+            color: var(--text-muted); font-size: 0.8rem;
+            border-top: 1px solid var(--card-border); margin-top: 1rem;
         }
 
         @media (max-width: 768px) {
             header h1 { font-size: 2rem; }
             .plugin-grid { grid-template-columns: 1fr; }
-            .music-float-btn { width: 50px; height: 50px; bottom: 20px; right: 20px; }
             .affiliate-slide { height: 70px; }
         }
     </style>
 </head>
 <body>
 
-    <!-- HIDDEN YOUTUBE PLAYER -->
     <div id="hidden-youtube-player" style="display: none;"></div>
 
-    <!-- Floating Music Button -->
     <div id="musicBtn" class="music-float-btn" onclick="toggleMusic()">
         <i id="musicIcon" class="fas fa-music"></i>
         <div id="visualizer" class="visualizer" style="display: none;">
@@ -448,7 +413,6 @@
             </a>
         </div>
 
-        <!-- AFFILIATE SLIDER 1 (Atas) -->
         <div id="affiliate-slider-1" class="affiliate-slider-container">
             <div id="affiliate-track-1" class="affiliate-track"></div>
         </div>
@@ -466,7 +430,6 @@
         <div id="pagination-controls" class="pagination-container"></div>
     </div>
 
-    <!-- AFFILIATE SLIDER 2 (Bawah) -->
     <div id="affiliate-slider-2" class="affiliate-slider-container" style="margin-top: 2rem; margin-bottom: 0; border-top: none;">
         <div id="affiliate-track-2" class="affiliate-track"></div>
     </div>
@@ -475,118 +438,92 @@
         &copy; 2023 Plugin Community Aziiz1998. All rights reserved.
     </footer>
 
-    <!-- YOUTUBE IFRAME API -->
     <script src="https://www.youtube.com/iframe_api"></script>
     <script>
-        // --- SCRIPT MUSIK YOUTUBE ---
-        let player;
-        let isPlayerReady = false;
-        let isPlaying = false;
-
+        // --- MUSIC SETUP ---
+        let player; let isPlayerReady = false; let isPlaying = false;
         function onYouTubeIframeAPIReady() {
             player = new YT.Player('hidden-youtube-player', {
                 videoId: '13ARO0HDZsQ', 
                 playerVars: { 'autoplay': 0, 'controls': 0, 'loop': 1, 'playlist': '13ARO0HDZsQ' },
-                events: {
-                    'onReady': function(event) { isPlayerReady = true; }
-                }
+                events: { 'onReady': (e) => isPlayerReady = true }
             });
         }
-
         function toggleMusic() {
-            if (!isPlayerReady) { alert("Musik loading..."); return; }
-            const btn = document.getElementById('musicBtn');
-            const icon = document.getElementById('musicIcon');
-            const viz = document.getElementById('visualizer');
-
-            if (isPlaying) {
-                player.pauseVideo();
-                icon.style.display = "block"; viz.style.display = "none"; btn.classList.remove('playing');
-            } else {
-                player.playVideo();
-                icon.style.display = "none"; viz.style.display = "flex"; btn.classList.add('playing');
-            }
+            if (!isPlayerReady) return;
+            let btn = document.getElementById('musicBtn');
+            let icon = document.getElementById('musicIcon');
+            let viz = document.getElementById('visualizer');
+            if (isPlaying) { player.pauseVideo(); icon.style.display="block"; viz.style.display="none"; btn.classList.remove('playing'); }
+            else { player.playVideo(); icon.style.display="none"; viz.style.display="flex"; btn.classList.add('playing'); }
             isPlaying = !isPlaying;
         }
 
-        // --- SCRIPT DATA UTAMA ---
-        
-        // ID Spreadsheet
+        // --- GOOGLE DRIVE IMAGE FIXER (SOLUSI UTAMA) ---
+        function fixGDriveLink(url) {
+            if (!url) return '';
+            // Jika link google drive biasa (view), ubah ke direct link (uc?export=view)
+            // Contoh: drive.google.com/file/d/ID_FILE/view -> drive.google.com/uc?export=view&id=ID_FILE
+            let match = url.match(/drive\.google\.com\/file\/d\/([a-zA-Z0-9_-]+)/);
+            if (match) {
+                return `https://drive.google.com/uc?export=view&id=${match[1]}`;
+            }
+            // Jika sudah benar atau link lain, kembalikan apa adanya
+            return url;
+        }
+
+        // --- DATA SETUP ---
         const PLUGIN_ID = '1bqHZZ_cKQFBVV_3DTfmD6E6Wl4iriykMIHdd-qoPbJU';
         const AFFILIATE_1_ID = '1S-kFFMalmJSddXFzoSUF8vDrmQCugxnISWLkzwZYOO0';
         const AFFILIATE_2_ID = '1dIa9VYNu96CPynDU-fS5UVLW5rnvRorEeOPVsJ-you0';
-
-        // URL Generator
         const getSheetURL = (id) => `https://docs.google.com/spreadsheets/d/${id}/gviz/tq?tqx=out:csv&sheet=Sheet1`;
 
-        let allPluginsData = [];
-        let currentPage = 1;
-        const itemsPerPage = 17;
-        let currentFilteredData = [];
+        let allPluginsData = []; let currentPage = 1; const itemsPerPage = 17; let currentFilteredData = [];
 
-        // --- FUNGSI LOAD AFFILIATE ---
+        // --- AFFILIATE LOADER ---
         function loadAffiliate(sheetID, trackID, containerID) {
-            fetch(getSheetURL(sheetID))
-                .then(res => res.text())
-                .then(csv => {
-                    Papa.parse(csv, {
-                        header: true,
-                        complete: function(results) {
-                            if(results.data && results.data.length > 0) {
-                                let htmlContent = '';
-                                results.data.forEach(row => {
-                                    if(row['Image']) {
-                                        const img = row['Image'];
-                                        const link = row['Link'] || '#';
-                                        htmlContent += `
-                                            <div class="affiliate-slide">
-                                                <a href="${link}" target="_blank">
-                                                    <img src="${img}" alt="Affiliate" referrerpolicy="no-referrer">
-                                                </a>
-                                            </div>
-                                        `;
-                                    }
-                                });
-
-                                if(htmlContent) {
-                                    const track = document.getElementById(trackID);
-                                    const container = document.getElementById(containerID);
-                                    track.innerHTML = htmlContent + htmlContent; // Duplikat
-                                    container.classList.add('loaded');
+            fetch(getSheetURL(sheetID)).then(res => res.text()).then(csv => {
+                Papa.parse(csv, {
+                    header: true,
+                    complete: function(results) {
+                        if(results.data && results.data.length > 0) {
+                            let html = '';
+                            results.data.forEach(row => {
+                                if(row['Image']) {
+                                    // Terapkan fix link juga ke affiliate
+                                    const img = fixGDriveLink(row['Image']);
+                                    const link = row['Link'] || '#';
+                                    html += `<div class="affiliate-slide"><a href="${link}" target="_blank"><img src="${img}" referrerpolicy="no-referrer"></a></div>`;
                                 }
+                            });
+                            if(html) {
+                                let track = document.getElementById(trackID);
+                                let container = document.getElementById(containerID);
+                                track.innerHTML = html + html;
+                                container.classList.add('loaded');
                             }
                         }
-                    });
+                    }
                 });
+            });
         }
-
-        // Load Affiliate 1 (Atas)
         loadAffiliate(AFFILIATE_1_ID, 'affiliate-track-1', 'affiliate-slider-1');
-        
-        // Load Affiliate 2 (Bawah)
         loadAffiliate(AFFILIATE_2_ID, 'affiliate-track-2', 'affiliate-slider-2');
 
-        // --- FETCH PLUGIN DATA ---
-        
+        // --- PLUGIN RENDERER ---
         function renderCards(data, page) {
             const container = document.getElementById('plugin-list');
             container.innerHTML = ''; 
+            if (data.length === 0) { container.innerHTML = `<div class="status-box error">Plugin tidak ditemukan.</div>`; return; }
 
-            if (data.length === 0) {
-                container.innerHTML = `<div class="status-box error">Plugin tidak ditemukan.</div>`;
-                return;
-            }
-
-            const startIndex = (page - 1) * itemsPerPage;
-            const endIndex = startIndex + itemsPerPage;
-            const paginatedData = data.slice(startIndex, endIndex);
-
+            const paginatedData = data.slice((page - 1) * itemsPerPage, page * itemsPerPage);
             let htmlContent = '<div class="plugin-grid">';
             
             paginatedData.forEach(row => {
                 if (row['Nama Plugin'] && row['Nama Plugin'].trim() !== '') {
                     const nama = row['Nama Plugin'];
-                    const foto = row['Link Foto'] || 'https://via.placeholder.com/400x200?text=No+Image';
+                    // PENTING: Gunakan fungsi fixGDriveLink di sini
+                    const foto = fixGDriveLink(row['Link Foto']) || 'https://via.placeholder.com/400x200?text=No+Image';
                     const desk = row['Deskripsi'] || 'Tidak ada deskripsi';
                     const down = row['Link Download'] || '#';
                     const pembuat = row['Nama Pembuat'] || 'Anonymous';
@@ -599,7 +536,7 @@
                     htmlContent += `
                         <article class="${cardClass}">
                             <div class="img-container">
-                                <img src="${foto}" alt="${nama}" referrerpolicy="no-referrer">
+                                <img src="${foto}" alt="${nama}" referrerpolicy="no-referrer" onerror="this.src='https://via.placeholder.com/400x200?text=Error+Load'">
                                 <div class="badge-overlay">
                                     <div class="category-tag">${kategori}</div>
                                     ${badgeHTML}
@@ -623,34 +560,17 @@
         }
 
         function renderPagination(totalItems) {
-            const paginationContainer = document.getElementById('pagination-controls');
-            const totalPages = Math.ceil(totalItems / itemsPerPage);
-            if (totalPages <= 1) { paginationContainer.innerHTML = ''; return; }
-
-            let html = '';
-            html += `<button class="pagination-btn" onclick="changePage(${currentPage - 1})" ${currentPage === 1 ? 'disabled' : ''}>
-                        <i class="fas fa-chevron-left"></i> Prev
-                     </button>`;
-
-            let startPage = Math.max(1, currentPage - 2);
-            let endPage = Math.min(totalPages, currentPage + 2);
-            
-            if (startPage > 1) {
-                html += `<button class="pagination-btn" onclick="changePage(1)">1</button>`;
-                if (startPage > 2) html += `<span style="color: #fff;">...</span>`;
-            }
-            for (let i = startPage; i <= endPage; i++) {
-                html += `<button class="pagination-btn ${i === currentPage ? 'active' : ''}" onclick="changePage(${i})">${i}</button>`;
-            }
-            if (endPage < totalPages) {
-                if (endPage < totalPages - 1) html += `<span style="color: #fff;">...</span>`;
-                html += `<button class="pagination-btn" onclick="changePage(${totalPages})">${totalPages}</button>`;
-            }
-
-            html += `<button class="pagination-btn" onclick="changePage(${currentPage + 1})" ${currentPage === totalPages ? 'disabled' : ''}>
-                        Next <i class="fas fa-chevron-right"></i>
-                     </button>`;
-            paginationContainer.innerHTML = html;
+            const pc = document.getElementById('pagination-controls');
+            const tp = Math.ceil(totalItems / itemsPerPage);
+            if (tp <= 1) { pc.innerHTML = ''; return; }
+            let html = `<button class="pagination-btn" onclick="changePage(${currentPage - 1})" ${currentPage === 1 ? 'disabled' : ''}><i class="fas fa-chevron-left"></i> Prev</button>`;
+            let sp = Math.max(1, currentPage - 2);
+            let ep = Math.min(tp, currentPage + 2);
+            if (sp > 1) { html += `<button class="pagination-btn" onclick="changePage(1)">1</button>`; if (sp > 2) html += `<span style="color: #fff;">...</span>`; }
+            for (let i = sp; i <= ep; i++) { html += `<button class="pagination-btn ${i === currentPage ? 'active' : ''}" onclick="changePage(${i})">${i}</button>`; }
+            if (ep < tp) { if (ep < tp - 1) html += `<span style="color: #fff;">...</span>`; html += `<button class="pagination-btn" onclick="changePage(${tp})">${tp}</button>`; }
+            html += `<button class="pagination-btn" onclick="changePage(${currentPage + 1})" ${currentPage === tp ? 'disabled' : ''}>Next <i class="fas fa-chevron-right"></i></button>`;
+            pc.innerHTML = html;
         }
 
         function changePage(pageNumber) {
@@ -661,42 +581,30 @@
         }
 
         document.getElementById('searchInput').addEventListener('keyup', function(e) {
-            const searchTerm = e.target.value.toLowerCase();
-            if (!searchTerm) {
-                currentFilteredData = allPluginsData;
-            } else {
-                currentFilteredData = allPluginsData.filter(row => {
-                    return (row['Nama Plugin'] || '').toLowerCase().includes(searchTerm) || 
-                           (row['Deskripsi'] || '').toLowerCase().includes(searchTerm) || 
-                           (row['Nama Pembuat'] || '').toLowerCase().includes(searchTerm) || 
-                           (row['Kategori'] || '').toLowerCase().includes(searchTerm);
-                });
-            }
+            const st = e.target.value.toLowerCase();
+            currentFilteredData = st ? allPluginsData.filter(row => 
+                (row['Nama Plugin'] || '').toLowerCase().includes(st) || 
+                (row['Deskripsi'] || '').toLowerCase().includes(st) || 
+                (row['Nama Pembuat'] || '').toLowerCase().includes(st) || 
+                (row['Kategori'] || '').toLowerCase().includes(st)
+            ) : allPluginsData;
             currentPage = 1;
             renderCards(currentFilteredData, currentPage);
             renderPagination(currentFilteredData.length);
         });
 
         fetch(getSheetURL(PLUGIN_ID))
-            .then(response => { if (!response.ok) throw new Error('Gagal'); return response.text(); })
+            .then(response => response.text())
             .then(csvText => {
                 Papa.parse(csvText, {
-                    header: true,
-                    skipEmptyLines: true,
+                    header: true, skipEmptyLines: true,
                     complete: function(results) {
-                        if (results.data.length === 0) {
-                            document.getElementById('plugin-list').innerHTML = `<div class="status-box error">Data kosong.</div>`;
-                            return;
-                        }
                         allPluginsData = results.data;
                         currentFilteredData = allPluginsData;
                         renderCards(currentFilteredData, currentPage);
                         renderPagination(currentFilteredData.length);
                     }
                 });
-            })
-            .catch(error => {
-                document.getElementById('plugin-list').innerHTML = `<div class="status-box error">ERROR: Pastikan Sheet Plugin Publish.</div>`;
             });
     </script>
 </body>
