@@ -84,114 +84,21 @@
         .search-icon { position: absolute; left: 20px; top: 50%; transform: translateY(-50%); color: var(--text-muted); }
         .warning-text { color: var(--error-color); font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-top: 0.5rem; font-size: 0.9rem; margin-bottom: 2rem; }
 
-        /* AFFILIATE SLIDER - FIT CONTAIN (TIDAK TERPOTONG) */
-        .affiliate-section {
-            max-width: 1300px;
-            margin: 0 auto 2.5rem;
-            padding: 0 2rem;
-            position: relative;
-            display: none;
-        }
+        /* AFFILIATE SLIDER */
+        .affiliate-section { max-width: 1300px; margin: 0 auto 2.5rem; padding: 0 2rem; position: relative; display: none; }
         .affiliate-section.loaded { display: block; }
-
-        .affiliate-container {
-            position: relative;
-            overflow: hidden;
-            border-radius: 20px;
-            border: 1px solid rgba(255,255,255,0.1);
-            background: #151515; /* Warna netral untuk background gambar */
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-        }
-
-        .affiliate-track {
-            display: flex;
-            transition: transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
-        }
-
-        .affiliate-slide {
-            width: 100%;
-            flex: 0 0 auto;
-            /* Tinggi dinaikkan agar gambar Shopee muat */
-            height: 350px; 
-            position: relative;
-            cursor: pointer;
-            overflow: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .affiliate-slide img {
-            width: 100%;
-            height: 100%;
-            display: block;
-            /* PENTING: Contain agar gambar TIDAK TERPOTONG */
-            object-fit: contain; 
-            /* Background jika gambar transparan */
-            background-color: #fff; 
-            transition: transform 0.3s ease;
-        }
-        
-        .affiliate-slide:hover img {
-            transform: scale(1.02);
-        }
-
-        /* Panah Navigasi */
-        .affiliate-arrow {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 50px;
-            height: 50px;
-            background: rgba(0, 0, 0, 0.6);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            color: #fff;
-            font-size: 18px;
-            cursor: pointer;
-            z-index: 10;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s;
-        }
-        .affiliate-arrow:hover {
-            background: var(--accent-glow);
-            color: #000;
-            box-shadow: 0 0 20px var(--accent-glow);
-            border-color: var(--accent-glow);
-        }
+        .affiliate-container { position: relative; overflow: hidden; border-radius: 20px; border: 1px solid rgba(255,255,255,0.1); background: #151515; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); }
+        .affiliate-track { display: flex; transition: transform 0.8s cubic-bezier(0.22, 1, 0.36, 1); }
+        .affiliate-slide { width: 100%; flex: 0 0 auto; height: 350px; position: relative; cursor: pointer; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+        .affiliate-slide img { width: 100%; height: 100%; display: block; object-fit: contain; background-color: #fff; transition: transform 0.3s ease; }
+        .affiliate-slide:hover img { transform: scale(1.02); }
+        .affiliate-arrow { position: absolute; top: 50%; transform: translateY(-50%); width: 50px; height: 50px; background: rgba(0, 0, 0, 0.6); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 50%; color: #fff; font-size: 18px; cursor: pointer; z-index: 10; display: flex; align-items: center; justify-content: center; transition: all 0.3s; }
+        .affiliate-arrow:hover { background: var(--accent-glow); color: #000; box-shadow: 0 0 20px var(--accent-glow); border-color: var(--accent-glow); }
         .arrow-left { left: 15px; }
         .arrow-right { right: 15px; }
-
-        /* Indikator Titik */
-        .affiliate-dots {
-            position: absolute;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            gap: 10px;
-            z-index: 10;
-            padding: 5px 15px;
-            background: rgba(0,0,0,0.5);
-            backdrop-filter: blur(5px);
-            border-radius: 30px;
-        }
-        .dot {
-            width: 8px;
-            height: 8px;
-            background: rgba(255,255,255,0.4);
-            border-radius: 50%;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        .dot.active {
-            background: var(--accent-glow);
-            box-shadow: 0 0 8px var(--accent-glow);
-            transform: scale(1.3);
-        }
+        .affiliate-dots { position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); display: flex; gap: 10px; z-index: 10; padding: 5px 15px; background: rgba(0,0,0,0.5); backdrop-filter: blur(5px); border-radius: 30px; }
+        .dot { width: 8px; height: 8px; background: rgba(255,255,255,0.4); border-radius: 50%; cursor: pointer; transition: all 0.3s; }
+        .dot.active { background: var(--accent-glow); box-shadow: 0 0 8px var(--accent-glow); transform: scale(1.3); }
 
         /* TIKTOK SECTION */
         .tiktok-section { max-width: 1300px; margin: 0 auto 2rem; padding: 0 2rem; }
@@ -245,12 +152,12 @@
 
         footer.main-footer { text-align: center; padding: 2rem; color: var(--text-muted); font-size: 0.8rem; border-top: 1px solid var(--card-border); margin-top: 1rem; }
 
-        /* RESPONSIVE MOBILE */
+        /* RESPONSIVE */
         @media (max-width: 768px) { 
             header h1 { font-size: 2rem; } 
             .plugin-grid { grid-template-columns: 1fr; } 
             .affiliate-section { padding: 0 10px; }
-            .affiliate-slide { height: 250px; } /* Tinggi untuk mobile */
+            .affiliate-slide { height: 250px; }
             .affiliate-arrow { width: 35px; height: 35px; font-size: 14px; }
             .affiliate-dots { bottom: 10px; padding: 4px 10px; gap: 8px; }
             .tiktok-section { padding: 0 5px; } 
@@ -275,7 +182,7 @@
             <a href="https://play.google.com/store/apps/details?id=info.flowersoft.theotown.theotown" target="_blank" class="btn-header btn-game"><i class="fab fa-google-play"></i> Download Game</a>
         </div>
 
-        <!-- AFFILIATE 1 - BIG BANNER -->
+        <!-- AFFILIATE 1 -->
         <div id="aff-section-1" class="affiliate-section">
             <div class="affiliate-container">
                 <div class="affiliate-arrow arrow-left" onclick="slideAffiliate(1, -1)"><i class="fas fa-chevron-left"></i></div>
@@ -306,7 +213,7 @@
         <div id="pagination-controls" class="pagination-container"></div>
     </div>
 
-    <!-- AFFILIATE 2 - BIG BANNER -->
+    <!-- AFFILIATE 2 -->
     <div id="aff-section-2" class="affiliate-section" style="margin-top: 2rem;">
         <div class="affiliate-container" style="border-top: none;">
             <div class="affiliate-arrow arrow-left" onclick="slideAffiliate(2, -1)"><i class="fas fa-chevron-left"></i></div>
@@ -327,11 +234,20 @@
         }
         function toggleMusic() { if (!isPlayerReady) return; let btn = document.getElementById('musicBtn'); let icon = document.getElementById('musicIcon'); let viz = document.getElementById('visualizer'); if (isPlaying) { player.pauseVideo(); icon.style.display="block"; viz.style.display="none"; btn.classList.remove('playing'); } else { player.playVideo(); icon.style.display="none"; viz.style.display="flex"; btn.classList.add('playing'); } isPlaying = !isPlaying; }
 
-        // --- GDRIVE FIXER ---
-        function fixGDriveLink(url) {
+        // --- LINK FIXER (Google Drive + ImgBB) ---
+        function fixImageLink(url) {
             if (!url) return '';
+            
+            // 1. Fix Google Drive
             let match = url.match(/drive\.google\.com\/file\/d\/([a-zA-Z0-9_-]+)/);
             if (match) { return `https://drive.google.com/thumbnail?id=${match[1]}&sz=w1000`; }
+
+            // 2. Fix ImgBB (Jika user salah masukin link pendek ibb.co, coba ubah ke i.ibb.co)
+            // Ini solusi cadangan, hasil terbaik tetap manual memakai link i.ibb.co
+            if (url.includes('ibb.co/') && !url.includes('i.ibb.co')) {
+                return url.replace('ibb.co/', 'i.ibb.co/') + '.jpg'; // Tebakan format, tidak selalu berhasil
+            }
+
             return url;
         }
 
@@ -347,7 +263,7 @@
         // --- TIKTOK LOADER ---
         fetch(getSheetURL(TIKTOK_ID)).then(res => res.text()).then(csv => { Papa.parse(csv, { header: true, complete: function(results) { const container = document.getElementById('tiktok-container'); const debugDiv = document.getElementById('tiktok-debug'); let foundAny = false; if(results.data && results.data.length > 0) { results.data.forEach((row) => { let link = row['Link'] || row['link'] || row['LINK']; if(link) { foundAny = true; if(debugDiv) debugDiv.style.display = 'none'; const card = document.createElement('div'); card.className = 'tiktok-card'; let videoId = ''; let idMatch = link.match(/video\/(\d+)/); if(idMatch) videoId = idMatch[1]; if(videoId) { card.innerHTML = `<iframe src="https://www.tiktok.com/embed/v2/${videoId}" class="tiktok-embed" allowfullscreen="true" allow="fullscreen" loading="lazy"></iframe>`; } else { card.innerHTML = `<blockquote class="tiktok-embed" cite="${link}" data-video-id="" style="max-width: 605px;min-width: 325px;" ><section><a target="_blank" href="${link}">Tonton di TikTok</a></section></blockquote>`; } container.appendChild(card); } }); if(!foundAny) { debugDiv.innerHTML = "<span style='color:var(--error_color)'>Kolom 'Link' tidak ditemukan.</span>"; debugDiv.style.display = 'block'; } if (container.querySelector('blockquote')) { var script = document.createElement('script'); script.src = 'https://www.tiktok.com/embed.js'; script.async = true; document.body.appendChild(script); } } } }); });
 
-        // --- AFFILIATE CAROUSEL LOGIC (PROFESSIONAL) ---
+        // --- AFFILIATE CAROUSEL LOGIC ---
         const affiliateStates = {}; 
 
         function initAffiliateSlider(sheetID, trackID, sectionID, dotsID) {
@@ -365,9 +281,10 @@
                             
                             results.data.forEach(row => {
                                 if(row['Image']) { 
-                                    const img = fixGDriveLink(row['Image']); 
+                                    // Gunakan fungsi fixImageLink baru
+                                    const img = fixImageLink(row['Image']); 
                                     const link = row['Link'] || '#'; 
-                                    html += `<div class="affiliate-slide"><a href="${link}" target="_blank"><img src="${img}" referrerpolicy="no-referrer"></a></div>`; 
+                                    html += `<div class="affiliate-slide"><a href="${link}" target="_blank"><img src="${img}" referrerpolicy="no-referrer" onerror="this.style.display='none'"></a></div>`; 
                                     const activeClass = count === 0 ? 'active' : '';
                                     dotsHtml += `<div class="dot ${activeClass}" onclick="jumpToSlide('${trackID}', ${count})"></div>`;
                                     count++;
@@ -453,7 +370,8 @@
             paginatedData.forEach(row => {
                 if (row['Nama Plugin'] && row['Nama Plugin'].trim() !== '') {
                     const nama = row['Nama Plugin'];
-                    const foto = fixGDriveLink(row['Link Foto']) || 'https://via.placeholder.com/400x200?text=No+Image';
+                    // Gunakan fungsi fixImageLink baru
+                    const foto = fixImageLink(row['Link Foto']) || 'https://via.placeholder.com/400x200?text=No+Image';
                     const desk = row['Deskripsi'] || 'Tidak ada deskripsi';
                     const down = row['Link Download'] || '#';
                     const pembuat = row['Nama Pembuat'] || 'Anonymous';
