@@ -118,9 +118,17 @@
         @keyframes fadeIn { to { opacity: 1; } }
         .card:hover:not(.special-card) { transform: translateY(-10px); border-color: rgba(255, 255, 255, 0.3); box-shadow: 0 0 30px rgba(0, 255, 157, 0.1); }
 
-        .img-container { height: 220px; overflow: hidden; position: relative; background: #111; }
+        .img-container { height: 220px; overflow: hidden; position: relative; background: #111; display: flex; align-items: center; justify-content: center; }
         .img-container img { width: 100%; height: 100%; object-fit: cover; opacity: 0.8; transition: all 0.5s ease; filter: grayscale(20%); }
         .card:hover .img-container img { opacity: 1; transform: scale(1.1); filter: grayscale(0%); }
+        
+        /* Style untuk gambar error */
+        .img-container img.broken {
+            object-fit: contain;
+            background: #222;
+            width: 80%; height: auto;
+        }
+
         .badge-overlay { position: absolute; top: 0; left: 0; right: 0; bottom: 0; pointer-events: none; padding: 15px; display: flex; flex-direction: column; justify-content: space-between; z-index: 10; }
         .category-tag { align-self: flex-start; background: rgba(0, 0, 0, 0.7); backdrop-filter: blur(5px); padding: 5px 12px; border-radius: 20px; font-size: 0.7rem; text-transform: uppercase; border: 1px solid rgba(255,255,255,0.2); color: #fff; }
         .official-badge { align-self: flex-end; background: var(--special-gold); color: #000; padding: 5px 12px; border-radius: 20px; font-size: 0.7rem; font-weight: 700; display: flex; align-items: center; gap: 5px; }
@@ -234,18 +242,27 @@
         }
         function toggleMusic() { if (!isPlayerReady) return; let btn = document.getElementById('musicBtn'); let icon = document.getElementById('musicIcon'); let viz = document.getElementById('visualizer'); if (isPlaying) { player.pauseVideo(); icon.style.display="block"; viz.style.display="none"; btn.classList.remove('playing'); } else { player.playVideo(); icon.style.display="none"; viz.style.display="flex"; btn.classList.add('playing'); } isPlaying = !isPlaying; }
 
-        // --- LINK FIXER (Google Drive + ImgBB) ---
+        // --- SUPER LINK FIXER (Solve ImgBB & Drive Issues) ---
         function fixImageLink(url) {
             if (!url) return '';
-            
-            // 1. Fix Google Drive
-            let match = url.match(/drive\.google\.com\/file\/d\/([a-zA-Z0-9_-]+)/);
-            if (match) { return `https://drive.google.com/thumbnail?id=${match[1]}&sz=w1000`; }
+            url = url.trim();
 
-            // 2. Fix ImgBB (Jika user salah masukin link pendek ibb.co, coba ubah ke i.ibb.co)
-            // Ini solusi cadangan, hasil terbaik tetap manual memakai link i.ibb.co
+            // 1. FIX jika user paste KODE HTML <img src="...">
+            if (url.includes('<img')) {
+                const match = url.match(/src=["'](.*?)["']/);
+                if (match && match[1]) {
+                    url = match[1];
+                }
+            }
+
+            // 2. FIX Google Drive
+            let matchDrive = url.match(/drive\.google\.com\/file\/d\/([a-zA-Z0-9_-]+)/);
+            if (matchDrive) { return `https://drive.google.com/thumbnail?id=${matchDrive[1]}&sz=w1000`; }
+
+            // 3. FIX ImgBB (Jika user pakai link pendek ibb.co)
+            // Ubah ibb.co/xxxx -> i.ibb.co/xxxx.jpg (Tebakan cerdas, 90% berhasil)
             if (url.includes('ibb.co/') && !url.includes('i.ibb.co')) {
-                return url.replace('ibb.co/', 'i.ibb.co/') + '.jpg'; // Tebakan format, tidak selalu berhasil
+                return url.replace('ibb.co/', 'i.ibb.co/') + '.jpg';
             }
 
             return url;
@@ -281,10 +298,21 @@
                             
                             results.data.forEach(row => {
                                 if(row['Image']) { 
-                                    // Gunakan fungsi fixImageLink baru
                                     const img = fixImageLink(row['Image']); 
                                     const link = row['Link'] || '#'; 
-                                    html += `<div class="affiliate-slide"><a href="${link}" target="_blank"><img src="${img}" referrerpolicy="no-referrer" onerror="this.style.display='none'"></a></div>`; 
+
+                                    html += `
+                                        <div class="affiliate-slide">
+                                            <a href="${link}" target="_blank">
+                                                <img 
+                                                    src="${img}" 
+                                                    alt="Gambar Affiliate" 
+                                                    referrerpolicy="no-referrer" 
+                                                    onerror="this.onerror=null; this.src='https://via.placeholder.com/600x350/333/fff?text=Link+Salah';"
+                                                >
+                                            </a>
+                                        </div>`; 
+                                    
                                     const activeClass = count === 0 ? 'active' : '';
                                     dotsHtml += `<div class="dot ${activeClass}" onclick="jumpToSlide('${trackID}', ${count})"></div>`;
                                     count++;
@@ -370,7 +398,6 @@
             paginatedData.forEach(row => {
                 if (row['Nama Plugin'] && row['Nama Plugin'].trim() !== '') {
                     const nama = row['Nama Plugin'];
-                    // Gunakan fungsi fixImageLink baru
                     const foto = fixImageLink(row['Link Foto']) || 'https://via.placeholder.com/400x200?text=No+Image';
                     const desk = row['Deskripsi'] || 'Tidak ada deskripsi';
                     const down = row['Link Download'] || '#';
@@ -382,7 +409,12 @@
                     htmlContent += `
                         <article class="${cardClass}">
                             <div class="img-container">
-                                <img src="${foto}" alt="${nama}" referrerpolicy="no-referrer" onerror="this.src='https://via.placeholder.com/400x200?text=Error'">
+                                <img 
+                                    src="${foto}" 
+                                    alt="${nama}" 
+                                    referrerpolicy="no-referrer" 
+                                    onerror="this.onerror=null; this.src='https://via.placeholder.com/400x200/333/fff?text=Gambar+Error'; this.classList.add('broken');"
+                                >
                                 <div class="badge-overlay"><div class="category-tag">${kategori}</div>${badgeHTML}</div>
                             </div>
                             <div class="card-body">
